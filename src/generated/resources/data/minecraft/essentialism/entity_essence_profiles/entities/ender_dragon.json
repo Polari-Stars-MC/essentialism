@@ -1,0 +1,14 @@
+{
+  "profile": {
+    "decay": 0.0,
+    "life": 72.0,
+    "light": 26.0,
+    "mind": 26.0,
+    "motion": 38.0,
+    "resonance": 44.0,
+    "shadow": 0.0,
+    "solidity": 30.0,
+    "spacetime": 28.0
+  },
+  "replace": false
+}

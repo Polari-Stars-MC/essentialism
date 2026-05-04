@@ -1,0 +1,18 @@
+{
+  "essence.solidity": "坚固",
+  "essence.life": "生命",
+  "essence.decay": "熵增",
+  "essence.light": "光明",
+  "essence.shadow": "暗影",
+  "essence.motion": "运动",
+  "essence.mind": "心灵",
+  "essence.spacetime": "时空",
+  "essence.resonance": "共鸣",
+  "message.essentialism.analyzers_lens.header": "正在解析 %s",
+  "message.essentialism.analyzers_lens.hint": "潜行使用透镜可查看完整光谱。",
+  "message.essentialism.analyzers_lens.detail": "完整光谱",
+  "message.essentialism.analyzers_lens.dominant_entry": "主导本质：%s %s",
+  "message.essentialism.analyzers_lens.unknown": "%s 暂无可读取的本质签名。",
+  "message.essentialism.analyzers_lens.empty": "未检测到可测量的本质。",
+  "item.essentialism.analyzers_lens": "解析透镜"
+}
