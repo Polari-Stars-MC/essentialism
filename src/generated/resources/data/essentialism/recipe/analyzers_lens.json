@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:amethyst_shard",
+    "minecraft:copper_ingot",
+    "minecraft:glass_pane"
+  ],
+  "result": {
+    "id": "essentialism:analyzers_lens"
+  }
+}

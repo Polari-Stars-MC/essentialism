@@ -10,4 +10,5 @@ public class EssenceConfig {
     @Comment("是否可以在玩家上用透镜")
     public boolean isPlayerEssence = true;
 
+
 }
