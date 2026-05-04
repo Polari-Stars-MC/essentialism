@@ -2,13 +2,21 @@ package com.essentialism.init;
 
 import com.essentialism.Essentialism;
 import com.essentialism.content.item.AnalyzerLensItem;
+import dev.anvilcraft.lib.v2.registrum.Registrum;
+import dev.anvilcraft.lib.v2.registrum.builders.NoConfigBuilder;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
+import dev.anvilcraft.lib.v2.registrum.util.entry.RegistryEntry;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class EItems {
+    public static final RegistryEntry<CreativeModeTab, CreativeModeTab> MAIN =
+            Essentialism.REGISTRUM.defaultCreativeTab("main", b -> b.icon(() -> EItems.ANALYZERS_LENS.get().getDefaultInstance()))
+                    .register();
+
     public static final ItemEntry<AnalyzerLensItem> ANALYZERS_LENS = Essentialism.REGISTRUM
             .item("analyzers_lens", AnalyzerLensItem::new)
             .properties(p -> p.stacksTo(1))
@@ -22,7 +30,6 @@ public class EItems {
                         .requires(Items.COPPER_INGOT)
                         .requires(Items.GLASS_PANE)
                         .save(prov.getOutput());
-                        ;
             })
             .lang("Analyzer's Lens")
             .register();
