@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "has_analyzers_lens": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essentialism:analyzers_lens"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancement.essentialism.root.description"
+    },
+    "icon": {
+      "id": "essentialism:analyzers_lens"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.essentialism.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_analyzers_lens"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

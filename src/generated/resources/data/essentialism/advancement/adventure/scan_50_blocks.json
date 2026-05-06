@@ -1,0 +1,31 @@
+{
+  "parent": "essentialism:root",
+  "criteria": {
+    "scan_count": {
+      "conditions": {
+        "scanned_blocks": {
+          "min": 50
+        }
+      },
+      "trigger": "essentialism:analyzer_lens_scan_size"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.essentialism.scan_50_blocks.description"
+    },
+    "icon": {
+      "id": "essentialism:analyzers_lens"
+    },
+    "title": {
+      "translate": "advancement.essentialism.scan_50_blocks.title"
+    }
+  },
+  "requirements": [
+    [
+      "scan_count"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

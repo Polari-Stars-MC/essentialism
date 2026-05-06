@@ -1,4 +1,8 @@
 {
+  "advancement.essentialism.root.description": "˙pꞁɹoʍ ǝɥʇ ɥᵷnoɹɥʇ uǝʌoʍ sǝɹnʇɐuᵷᴉs uǝppᴉɥ ǝɥʇ ꞁɐǝʌǝᴚ",
+  "advancement.essentialism.root.title": "ɯsᴉꞁɐᴉʇuǝssƎ",
+  "advancement.essentialism.scan_50_blocks.description": "˙sʞɔoꞁq ʇuǝɹǝɟɟᴉp 0ϛ ᵷoꞁɐʇɐɔ oʇ suǝꞀ s,ɹǝzʎꞁɐuⱯ ǝɥʇ ǝs∩",
+  "advancement.essentialism.scan_50_blocks.title": "ɥɔɹɐǝsǝᴚ pꞁǝᴉℲ",
   "combined_essence.abyss": "ssʎqⱯ",
   "combined_essence.echo": "oɥɔƎ",
   "combined_essence.paradox": "xopɐɹɐԀ",
@@ -14,6 +18,7 @@
   "essence.solidity": "ʎʇᴉpᴉꞁoS",
   "essence.spacetime": "ǝɯᴉʇǝɔɐdS",
   "item.essentialism.analyzers_lens": "suǝꞀ s,ɹǝzʎꞁɐuⱯ",
+  "itemGroup.essentialism.main": "uᴉɐW",
   "message.essentialism.analyzers_lens.combined": "sǝɔuǝssǝ pǝuᴉqɯoƆ",
   "message.essentialism.analyzers_lens.combined_entry": "%s :pǝuᴉqɯoƆ",
   "message.essentialism.analyzers_lens.detail": "ɯnɹʇɔǝds ꞁꞁnℲ",

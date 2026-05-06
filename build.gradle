@@ -34,12 +34,18 @@ neoForge {
         client {
             client()
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-            gameDirectory.set(file("build/runs/client"))
+
+            def f = file("build/runs/client")
+            f.mkdirs()
+            gameDirectory.set(f)
         }
         client2 {
             client()
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-            gameDirectory.set(file("build/runs/client2"))
+
+            def f = file("build/runs/client2")
+            f.mkdirs()
+            gameDirectory.set(f)
             programArguments.addAll('--username', 'Dev2')
         }
 
@@ -48,13 +54,19 @@ neoForge {
             server()
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-            gameDirectory.set(file("build/runs/server"))
+
+            def f = file("build/runs/server")
+            f.mkdirs()
+            gameDirectory.set(f)
         }
 
         data {
             clientData()
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-            gameDirectory.set(file("build/runs/data"))
+
+            def f = file("build/runs/data")
+            f.mkdirs()
+            gameDirectory.set(f)
         }
 
         configureEach {
@@ -94,6 +106,10 @@ def generateModMetadata = tasks.register('generateModMetadata', ProcessResources
     expand replaceProperties
     from 'src/main/templates'
     into 'build/generated/sources/modMetadata'
+}
+
+tasks.named('build').configure {
+    dependsOn 'runData', 'generateModMetadata'
 }
 
 sourceSets.main.resources.srcDir generateModMetadata

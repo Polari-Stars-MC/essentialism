@@ -1,25 +1,37 @@
 package com.essentialism.init;
 
 import com.essentialism.Essentialism;
+import com.essentialism.advancement.AnalyzerLensScanSizeTrigger;
 import com.essentialism.content.item.AnalyzerLensItem;
-import dev.anvilcraft.lib.v2.registrum.Registrum;
-import dev.anvilcraft.lib.v2.registrum.builders.NoConfigBuilder;
+import dev.anvilcraft.lib.v2.registrum.providers.GeneratorType;
+import dev.anvilcraft.lib.v2.registrum.providers.ProviderType;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
 import dev.anvilcraft.lib.v2.registrum.util.entry.RegistryEntry;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class EItems {
     public static final RegistryEntry<CreativeModeTab, CreativeModeTab> MAIN =
-            Essentialism.REGISTRUM.defaultCreativeTab("main", b -> b.icon(() -> EItems.ANALYZERS_LENS.get().getDefaultInstance()))
+            Essentialism.ESSENER.defaultCreativeTab("main", b -> b.icon(() -> EItems.ANALYZERS_LENS.get().getDefaultInstance()))
                     .register();
 
-    public static final ItemEntry<AnalyzerLensItem> ANALYZERS_LENS = Essentialism.REGISTRUM
+    public static final ItemEntry<AnalyzerLensItem> ANALYZERS_LENS = Essentialism.ESSENER
             .item("analyzers_lens", AnalyzerLensItem::new)
             .properties(p -> p.stacksTo(1))
+            .setData(ProviderType.ADVANCEMENT, (ctx, prov) -> {
+
+
+            })
             .defaultModel()
             .recipe((ctx, prov) -> {
                 prov.shapeless(RecipeCategory.MISC, ctx.get())

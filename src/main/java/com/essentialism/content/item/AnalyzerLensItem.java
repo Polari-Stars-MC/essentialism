@@ -1,15 +1,20 @@
 package com.essentialism.content.item;
 
 import com.essentialism.Essentialism;
+import com.essentialism.content.data.AnalyzerLensScanData;
 import com.essentialism.content.essence.CombinedEssenceType;
 import com.essentialism.content.essence.EssenceProfiles;
 import com.essentialism.content.essence.EssenceProfile;
+import com.essentialism.init.EAttachments;
 import com.essentialism.init.EItems;
+import com.essentialism.init.ETriggers;
 import com.essentialism.network.AnalyzerLensSigilS2CPacket;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -161,9 +166,16 @@ public class AnalyzerLensItem extends Item {
         event.setCanceled(true);
     }
 
+    public static void syncPlayerProgress(ServerPlayer player) {
+        ETriggers.ANALYZER_LENS_SCAN_SIZE.get().trigger(player);
+    }
+
     private static void inspectBlock(ServerPlayer player, Level level, net.minecraft.core.BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         EssenceProfile profile = EssenceProfiles.get(level, pos);
+        if (profile != null) {
+            recordBlockScan(player, state);
+        }
         inspectProfile(player, state.getBlock().getName(), profile);
     }
 
@@ -245,5 +257,16 @@ public class AnalyzerLensItem extends Item {
             return entityHit;
         }
         return blockHit.getType() == HitResult.Type.MISS ? null : blockHit;
+    }
+
+    private static void recordBlockScan(ServerPlayer player, BlockState state) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+        AnalyzerLensScanData scanData = player.getData(EAttachments.ANALYZER_LENS_SCAN);
+        if (!scanData.recordBlock(blockId)) {
+            return;
+        }
+
+        player.setData(EAttachments.ANALYZER_LENS_SCAN, scanData);
+        ETriggers.ANALYZER_LENS_SCAN_SIZE.get().trigger(player);
     }
 }

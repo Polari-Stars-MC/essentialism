@@ -1,4 +1,8 @@
 {
+  "advancement.essentialism.root.description": "Reveal the hidden signatures woven through the world.",
+  "advancement.essentialism.root.title": "Essentialism",
+  "advancement.essentialism.scan_50_blocks.description": "Use the Analyzer's Lens to catalog 50 different blocks.",
+  "advancement.essentialism.scan_50_blocks.title": "Field Research",
   "combined_essence.abyss": "Abyss",
   "combined_essence.echo": "Echo",
   "combined_essence.paradox": "Paradox",
@@ -14,6 +18,7 @@
   "essence.solidity": "Solidity",
   "essence.spacetime": "Spacetime",
   "item.essentialism.analyzers_lens": "Analyzer's Lens",
+  "itemGroup.essentialism.main": "Main",
   "message.essentialism.analyzers_lens.combined": "Combined essences",
   "message.essentialism.analyzers_lens.combined_entry": "Combined: %s",
   "message.essentialism.analyzers_lens.detail": "Full spectrum",

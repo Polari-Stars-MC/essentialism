@@ -14,5 +14,9 @@
   "message.essentialism.analyzers_lens.dominant_entry": "主导本质：%s %s",
   "message.essentialism.analyzers_lens.unknown": "%s 暂无可读取的本质签名。",
   "message.essentialism.analyzers_lens.empty": "未检测到可测量的本质。",
-  "item.essentialism.analyzers_lens": "解析透镜"
+  "item.essentialism.analyzers_lens": "解析透镜",
+  "advancement.essentialism.root.title": "本质主义",
+  "advancement.essentialism.root.description": "揭示编织在世界之中的隐藏本质签名。",
+  "advancement.essentialism.scan_50_blocks.title": "田野研究",
+  "advancement.essentialism.scan_50_blocks.description": "使用解析透镜记录 50 种不同方块的本质。"
 }
