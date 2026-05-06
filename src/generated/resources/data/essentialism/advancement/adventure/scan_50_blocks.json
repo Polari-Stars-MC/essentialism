@@ -4,7 +4,7 @@
     "scan_count": {
       "conditions": {
         "scanned_blocks": {
-          "min": 50
+          "min": 8
         }
       },
       "trigger": "essentialism:analyzer_lens_scan_size"

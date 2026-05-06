@@ -109,7 +109,7 @@ public final class Essentialism {
                             ETriggers.ANALYZER_LENS_SCAN_SIZE.get().createCriterion(
                                     new AnalyzerLensScanSizeTrigger.TriggerInstance(
                                             Optional.empty(),
-                                            MinMaxBounds.Ints.atLeast(50)
+                                            MinMaxBounds.Ints.atLeast(8)
                                     )
                             )
                     )
