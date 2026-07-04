@@ -4,6 +4,8 @@ import com.essentialism.advancement.AnalyzerLensScanSizeTrigger;
 import com.essentialism.config.EssenceConfig;
 import com.essentialism.content.essence.EssenceProfiles;
 import com.essentialism.content.item.AnalyzerLensItem;
+import com.essentialism.content.mechanic.EssenceEffects;
+import com.essentialism.content.menu.EMenus;
 import com.essentialism.data.EssenceProfileProvider;
 import com.essentialism.init.EAttachments;
 import com.essentialism.init.EItems;
@@ -18,6 +20,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -47,6 +50,7 @@ public final class Essentialism {
     public Essentialism(IEventBus modEventBus, ModContainer modContainer) {
         LOGGER.info("Initializing {}", MOD_ID);
         modEventBus.addListener(EssenceProfiles::register);
+        EssenceEffects.register(modEventBus);
         ESSENER.addDataGenerator(ProviderType.GENERIC_SERVER,
                 provider -> {
                     provider.add(data -> new EssenceProfileProvider(data.output()));
@@ -118,6 +122,7 @@ public final class Essentialism {
         ETriggers.register();
         EAttachments.register();
         EItems.register();
+        EMenus.register();
         MANAGER.compileContent();
     }
 

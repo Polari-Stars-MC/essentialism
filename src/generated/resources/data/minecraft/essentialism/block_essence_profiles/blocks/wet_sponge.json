@@ -5,9 +5,9 @@
     "light": 0.0,
     "mind": 0.0,
     "motion": 0.0,
-    "resonance": 80.0,
+    "resonance": 75.0,
     "shadow": 0.0,
-    "solidity": 10.0,
+    "solidity": 12.0,
     "spacetime": 0.0
   },
   "replace": false

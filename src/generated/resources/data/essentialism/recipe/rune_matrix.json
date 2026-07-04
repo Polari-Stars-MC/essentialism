@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:amethyst_block",
+    "E": "minecraft:enchanting_table",
+    "N": "minecraft:netherite_block"
+  },
+  "pattern": [
+    "NAN",
+    "AEA",
+    "NAN"
+  ],
+  "result": {
+    "id": "essentialism:rune_matrix"
+  }
+}

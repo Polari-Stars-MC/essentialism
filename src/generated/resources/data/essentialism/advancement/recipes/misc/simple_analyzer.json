@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_analyzers_lens": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essentialism:analyzers_lens"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "essentialism:simple_analyzer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_analyzers_lens"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "essentialism:simple_analyzer"
+    ]
+  }
+}

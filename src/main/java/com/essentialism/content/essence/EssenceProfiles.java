@@ -75,6 +75,23 @@ public final class EssenceProfiles {
         return entity.getCapability(ENTITY_ESSENCE_PROFILE, null);
     }
 
+    /**
+     * Resolve essence profile from an ItemStack by looking up the Block it represents.
+     * Only works for BlockItem instances.
+     */
+    public static @Nullable EssenceProfile resolveBlockFromItem(net.minecraft.world.item.ItemStack stack) {
+        if (stack.isEmpty()) return null;
+        net.minecraft.world.level.block.Block block = net.minecraft.world.level.block.Block.byItem(stack.getItem());
+        if (block == null || block.defaultBlockState().isAir()) return null;
+        return resolveBlockProfile(block);
+    }
+
+    public static @Nullable EssenceProfile resolveBlockFromItem(net.minecraft.world.item.Item item) {
+        net.minecraft.world.level.block.Block block = net.minecraft.world.level.block.Block.byItem(item);
+        if (block == null || block.defaultBlockState().isAir()) return null;
+        return resolveBlockProfile(block);
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     private static void registerEntityCapability(RegisterCapabilitiesEvent event, EntityType<?> entityType) {
         event.registerEntity(ENTITY_ESSENCE_PROFILE, (EntityType) entityType, EssenceProfiles::getEntityCapability);

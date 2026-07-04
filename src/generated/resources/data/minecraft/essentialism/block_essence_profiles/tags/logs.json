@@ -7,7 +7,7 @@
     "motion": 0.0,
     "resonance": 10.0,
     "shadow": 0.0,
-    "solidity": 25.0,
+    "solidity": 35.0,
     "spacetime": 0.0
   },
   "replace": false

@@ -101,163 +101,241 @@ public class EssenceProfileProvider implements DataProvider {
 
         add(profiles, new EssenceProfile(20.0F, 20.0F, 20.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
                 BlockTags.DIRT);
-        add(profiles, new EssenceProfile(10.0F, 10.0F, 30.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+        add(profiles, new EssenceProfile(15.0F, 10.0F, 35.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
                 BlockTags.ICE);
-        add(profiles, new EssenceProfile(25.0F, 55.0F, 15.0F, 0.0F, 0.0F, 0.0F, 5.0F, 0.0F, 10.0F),
+        add(profiles, new EssenceProfile(35.0F, 55.0F, 15.0F, 0.0F, 0.0F, 0.0F, 5.0F, 0.0F, 10.0F),
                 BlockTags.LOGS);
         add(profiles, new EssenceProfile(10.0F, 75.0F, 20.0F, 15.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
                 BlockTags.LEAVES);
         add(profiles, new EssenceProfile(70.0F, 0.0F, 0.0F, 20.0F, 20.0F, 0.0F, 0.0F, 0.0F, 20.0F),
                 Tags.Blocks.ORES);
-        add(profiles, new EssenceProfile(18, 0, 12, 8, 0, 18, 0, 0, 0),
+        add(profiles, new EssenceProfile(18.0F, 0.0F, 12.0F, 8.0F, 0.0F, 18.0F, 0.0F, 0.0F, 0.0F),
                 Tags.Blocks.SANDS);
-        add(profiles, new EssenceProfile(18, 0, 20, 10, 4, 18, 0, 0, 0),
+        add(profiles, new EssenceProfile(18.0F, 0.0F, 20.0F, 10.0F, 4.0F, 18.0F, 0.0F, 0.0F, 0.0F),
                 Tags.Blocks.SANDS_RED);
-        add(profiles, new EssenceProfile(22, 0, 18, 0, 4, 22, 0, 0, 0),
+        add(profiles, new EssenceProfile(22.0F, 0.0F, 18.0F, 0.0F, 4.0F, 22.0F, 0.0F, 0.0F, 0.0F),
                 Tags.Blocks.GRAVELS);
-        add(profiles, new EssenceProfile(12, 18, 15, 0, 0, 10, 0, 0, 0),
+        add(profiles, new EssenceProfile(12.0F, 18.0F, 15.0F, 0.0F, 0.0F, 10.0F, 0.0F, 0.0F, 0.0F),
                 BlockTags.MUD);
-        add(profiles, new EssenceProfile(18, 42, 12, 0, 0, 0, 4, 0, 6),
+        add(profiles, new EssenceProfile(18.0F, 42.0F, 12.0F, 0.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F),
                 BlockTags.PLANKS);
-        add(profiles, new EssenceProfile(14, 36, 10, 0, 0, 0, 2, 0, 4),
+        add(profiles, new EssenceProfile(14.0F, 36.0F, 10.0F, 0.0F, 0.0F, 0.0F, 2.0F, 0.0F, 4.0F),
                 BlockTags.WOODEN_SLABS);
-        add(profiles, new EssenceProfile(16, 38, 10, 0, 0, 0, 2, 0, 4),
+        add(profiles, new EssenceProfile(16.0F, 38.0F, 10.0F, 0.0F, 0.0F, 0.0F, 2.0F, 0.0F, 4.0F),
                 BlockTags.WOODEN_STAIRS);
-        add(profiles, new EssenceProfile(16, 34, 10, 0, 0, 0, 2, 0, 4),
+        add(profiles, new EssenceProfile(16.0F, 34.0F, 10.0F, 0.0F, 0.0F, 0.0F, 2.0F, 0.0F, 4.0F),
                 BlockTags.WOODEN_FENCES);
-        add(profiles, new EssenceProfile(18, 34, 10, 0, 0, 4, 2, 0, 4),
+        add(profiles, new EssenceProfile(18.0F, 34.0F, 10.0F, 0.0F, 0.0F, 4.0F, 2.0F, 0.0F, 4.0F),
                 BlockTags.FENCE_GATES);
-        add(profiles, new EssenceProfile(12, 36, 10, 0, 0, 6, 2, 0, 6),
+        add(profiles, new EssenceProfile(12.0F, 36.0F, 10.0F, 0.0F, 0.0F, 6.0F, 2.0F, 0.0F, 6.0F),
                 BlockTags.WOODEN_DOORS);
-        add(profiles, new EssenceProfile(14, 34, 10, 0, 0, 6, 2, 0, 6),
+        add(profiles, new EssenceProfile(14.0F, 34.0F, 10.0F, 0.0F, 0.0F, 6.0F, 2.0F, 0.0F, 6.0F),
                 BlockTags.WOODEN_TRAPDOORS);
-        add(profiles, new EssenceProfile(8, 18, 6, 0, 0, 10, 2, 0, 8),
+        add(profiles, new EssenceProfile(8.0F, 18.0F, 6.0F, 0.0F, 0.0F, 10.0F, 2.0F, 0.0F, 8.0F),
                 BlockTags.WOODEN_BUTTONS);
-        add(profiles, new EssenceProfile(10, 22, 8, 0, 0, 10, 2, 0, 8),
+        add(profiles, new EssenceProfile(10.0F, 22.0F, 8.0F, 0.0F, 0.0F, 10.0F, 2.0F, 0.0F, 8.0F),
                 BlockTags.WOODEN_PRESSURE_PLATES);
-        add(profiles, new EssenceProfile(8, 26, 8, 0, 0, 6, 8, 0, 20),
+        add(profiles, new EssenceProfile(8.0F, 26.0F, 8.0F, 0.0F, 0.0F, 6.0F, 8.0F, 0.0F, 20.0F),
                 BlockTags.STANDING_SIGNS);
-        add(profiles, new EssenceProfile(8, 26, 8, 0, 0, 4, 8, 0, 20),
+        add(profiles, new EssenceProfile(8.0F, 26.0F, 8.0F, 0.0F, 0.0F, 4.0F, 8.0F, 0.0F, 20.0F),
                 BlockTags.WALL_SIGNS);
-        add(profiles, new EssenceProfile(10, 44, 6, 6, 0, 0, 20, 0, 18),
+        add(profiles, new EssenceProfile(10.0F, 44.0F, 6.0F, 6.0F, 0.0F, 0.0F, 20.0F, 0.0F, 18.0F),
                 Tags.Blocks.BOOKSHELVES);
-        add(profiles, new EssenceProfile(18, 38, 10, 0, 0, 0, 8, 0, 12),
+        add(profiles, new EssenceProfile(18.0F, 38.0F, 10.0F, 0.0F, 0.0F, 0.0F, 8.0F, 0.0F, 12.0F),
                 Tags.Blocks.CHESTS, Tags.Blocks.BARRELS);
-        add(profiles, new EssenceProfile(30.0F, 70.0F, 10.0F, 30.0F, 0.0F, 0.0F, 10.0F, 0.0F, 0.0F),
+        add(profiles, new EssenceProfile(40.0F, 70.0F, 15.0F, 35.0F, 0.0F, 0.0F, 8.0F, 0.0F, 0.0F),
                 BlockTags.GRASS_BLOCKS);
-        add(profiles, new EssenceProfile(8, 0, 0, 18, 0, 0, 0, 10, 28),
+        add(profiles, new EssenceProfile(8.0F, 0.0F, 0.0F, 18.0F, 0.0F, 0.0F, 0.0F, 10.0F, 28.0F),
                 Tags.Blocks.GLASS_BLOCKS);
-        add(profiles, new EssenceProfile(6, 0, 0, 16, 0, 0, 0, 8, 24),
+        add(profiles, new EssenceProfile(6.0F, 0.0F, 0.0F, 16.0F, 0.0F, 0.0F, 0.0F, 8.0F, 24.0F),
                 Tags.Blocks.GLASS_PANES);
-        add(profiles, new EssenceProfile(72, 0, 0, 0, 0, 0, 0, 0, 14),
+        add(profiles, new EssenceProfile(72.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 14.0F),
                 Tags.Blocks.STORAGE_BLOCKS_IRON);
-        add(profiles, new EssenceProfile(66, 0, 0, 12, 0, 0, 0, 0, 24),
+        add(profiles, new EssenceProfile(66.0F, 0.0F, 0.0F, 12.0F, 0.0F, 0.0F, 0.0F, 0.0F, 24.0F),
                 Tags.Blocks.STORAGE_BLOCKS_GOLD);
-        add(profiles, new EssenceProfile(58, 0, 0, 8, 0, 0, 0, 0, 18),
+        add(profiles, new EssenceProfile(58.0F, 0.0F, 0.0F, 8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 18.0F),
                 Tags.Blocks.STORAGE_BLOCKS_COPPER);
-        add(profiles, new EssenceProfile(84, 0, 0, 18, 0, 0, 0, 8, 34),
+        add(profiles, new EssenceProfile(84.0F, 0.0F, 0.0F, 18.0F, 0.0F, 0.0F, 0.0F, 8.0F, 34.0F),
                 Tags.Blocks.STORAGE_BLOCKS_DIAMOND);
-        add(profiles, new EssenceProfile(70, 0, 0, 14, 0, 0, 0, 6, 28),
+        add(profiles, new EssenceProfile(70.0F, 0.0F, 0.0F, 14.0F, 0.0F, 0.0F, 0.0F, 6.0F, 28.0F),
                 Tags.Blocks.STORAGE_BLOCKS_EMERALD);
-        add(profiles, new EssenceProfile(52, 0, 0, 8, 8, 0, 0, 10, 26),
+        add(profiles, new EssenceProfile(52.0F, 0.0F, 0.0F, 8.0F, 8.0F, 0.0F, 0.0F, 10.0F, 26.0F),
                 Tags.Blocks.STORAGE_BLOCKS_LAPIS);
-        add(profiles, new EssenceProfile(2, 72, 18, 12, 0, 6, 0, 0, 6),
+        add(profiles, new EssenceProfile(2.0F, 72.0F, 18.0F, 12.0F, 0.0F, 6.0F, 0.0F, 0.0F, 6.0F),
                 Tags.Blocks.FLOWERS);
-        add(profiles, new EssenceProfile(3, 58, 14, 8, 0, 8, 0, 0, 4),
+        add(profiles, new EssenceProfile(3.0F, 58.0F, 14.0F, 8.0F, 0.0F, 8.0F, 0.0F, 0.0F, 4.0F),
                 BlockTags.SAPLINGS);
-        add(profiles, new EssenceProfile(12, 46, 10, 0, 0, 18, 0, 0, 10),
+        add(profiles, new EssenceProfile(12.0F, 46.0F, 10.0F, 0.0F, 0.0F, 18.0F, 0.0F, 0.0F, 10.0F),
                 BlockTags.BAMBOO_BLOCKS);
         return profiles;
     }
 
     private static Map<Identifier, EssenceProfile> createBlockProfiles() {
         Map<Identifier, EssenceProfile> profiles = new LinkedHashMap<>();
-        add(profiles, new EssenceProfile(30.0F, 70.0F, 10.0F, 30.0F, 0.0F, 0.0F, 10.0F, 0.0F, 0.0F),
-                Blocks.MOSS_BLOCK);
-        add(profiles, new EssenceProfile(60.0F, 0.0F, 20.0F, 0.0F, 20.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+
+        // ─── README design table blocks (values aligned with the 九大本质 table) ───
+
+        // 草方块: 坚固=中(40), 生命=高(70), 熵增=低(15), 光明=中(35), 心灵=低(8)
+        add(profiles, new EssenceProfile(40.0F, 70.0F, 15.0F, 35.0F, 0.0F, 0.0F, 8.0F, 0.0F, 0.0F),
+                Blocks.MOSS_BLOCK); // moss_block gets a similar grass-associated profile
+
+        // 石头系: 坚固=高(70), 熵增=中(35)
+        add(profiles, new EssenceProfile(70.0F, 0.0F, 35.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
                 Blocks.STONE, Blocks.COBBLESTONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE);
-        add(profiles, new EssenceProfile(80.0F, 0.0F, 30.0F, 0.0F, 80.0F, 0.0F, 0.0F, 30.0F, 0.0F),
+
+        // 深板岩: 坚固=高(75), 熵增=中(40), 暗影=高(65), 时空=中(35)
+        add(profiles, new EssenceProfile(75.0F, 0.0F, 40.0F, 0.0F, 65.0F, 0.0F, 0.0F, 35.0F, 0.0F),
                 Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE);
-        add(profiles, new EssenceProfile(0.0F, 0.0F, 10.0F, 95.0F, 70.0F, 0.0F, 0.0F, 0.0F, 0.0F),
-                Blocks.GLOWSTONE, Blocks.SEA_LANTERN);
+
+        // 荧石: 坚固=低(12), 熵增=低(15), 光明=极高(92), 暗影=高(60) — 但 sea_lantern 分开处理
+        add(profiles, new EssenceProfile(12.0F, 0.0F, 15.0F, 92.0F, 60.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+                Blocks.GLOWSTONE);
+
+        // 海晶灯: 光明=高(80), 共鸣=中(40)
+        add(profiles, new EssenceProfile(18.0F, 0.0F, 8.0F, 80.0F, 0.0F, 0.0F, 0.0F, 0.0F, 40.0F),
+                Blocks.SEA_LANTERN);
+
+        // 基岩: 坚固=100(无限), 时空=极高(95)
         add(profiles, new EssenceProfile(100.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 95.0F, 0.0F),
                 Blocks.BEDROCK);
-        add(profiles, new EssenceProfile(10.0F, 0.0F, 95.0F, 0.0F, 80.0F, 0.0F, 80.0F, 10.0F, 0.0F),
+
+        // 灵魂沙: 坚固=低(18), 熵增=极高(90), 暗影=高(70), 心灵=高(65), 时空=低(12)
+        add(profiles, new EssenceProfile(18.0F, 0.0F, 90.0F, 0.0F, 70.0F, 0.0F, 65.0F, 12.0F, 0.0F),
                 Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
-        add(profiles, new EssenceProfile(5.0F, 0.0F, 95.0F, 10.0F, 0.0F, 95.0F, 0.0F, 0.0F, 10.0F),
+
+        // TNT: 坚固=极低(5), 熵增=极高(88), 光明=低(10), 运动=极高(90), 共鸣=低(8)
+        add(profiles, new EssenceProfile(5.0F, 0.0F, 88.0F, 10.0F, 0.0F, 90.0F, 0.0F, 0.0F, 8.0F),
                 Blocks.TNT);
-        add(profiles, new EssenceProfile(30.0F, 0.0F, 0.0F, 10.0F, 30.0F, 0.0F, 0.0F, 80.0F, 30.0F),
+
+        // 紫水晶块: 坚固=中(40), 光明=中(35), 心灵=高(65), 时空=低(18), 共鸣=中(40)
+        add(profiles, new EssenceProfile(40.0F, 0.0F, 0.0F, 35.0F, 0.0F, 0.0F, 65.0F, 18.0F, 40.0F),
                 Blocks.AMETHYST_BLOCK, Blocks.BUDDING_AMETHYST);
-        add(profiles, new EssenceProfile(10.0F, 0.0F, 0.0F, 10.0F, 0.0F, 10.0F, 30.0F, 0.0F, 95.0F),
-                Blocks.NOTE_BLOCK, Blocks.JUKEBOX, Blocks.BELL);
-        add(profiles, new EssenceProfile(10.0F, 0.0F, 80.0F, 10.0F, 30.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+
+        // 唱片机: 坚固=低(20), 光明=低(15), 运动=低(18), 心灵=中(40), 共鸣=极高(90)
+        add(profiles, new EssenceProfile(20.0F, 0.0F, 0.0F, 15.0F, 0.0F, 18.0F, 40.0F, 0.0F, 90.0F),
+                Blocks.JUKEBOX);
+
+        // 音符盒: 坚固=低(15), 光明=低(12), 运动=低(10), 心灵=低(15), 共鸣=高(70)
+        add(profiles, new EssenceProfile(15.0F, 0.0F, 0.0F, 12.0F, 0.0F, 10.0F, 15.0F, 0.0F, 70.0F),
+                Blocks.NOTE_BLOCK);
+
+        // 钟: 坚固=中(30), 共鸣=高(65), 运动=低(10)
+        add(profiles, new EssenceProfile(30.0F, 0.0F, 0.0F, 0.0F, 0.0F, 10.0F, 0.0F, 0.0F, 65.0F),
+                Blocks.BELL);
+
+        // 下界岩: 坚固=低(22), 熵增=高(65), 光明=低(15), 暗影=中(40)
+        add(profiles, new EssenceProfile(22.0F, 0.0F, 65.0F, 15.0F, 40.0F, 0.0F, 0.0F, 0.0F, 0.0F),
                 Blocks.NETHERRACK);
-        add(profiles, new EssenceProfile(80.0F, 0.0F, 10.0F, 0.0F, 80.0F, 0.0F, 10.0F, 95.0F, 10.0F),
+
+        // 末地石: 坚固=高(65), 熵增=低(18), 暗影=高(60), 心灵=低(10), 时空=极高(88), 共鸣=低(15)
+        add(profiles, new EssenceProfile(65.0F, 0.0F, 18.0F, 0.0F, 60.0F, 0.0F, 10.0F, 88.0F, 15.0F),
                 Blocks.END_STONE);
-        add(profiles, new EssenceProfile(10.0F, 0.0F, 80.0F, 80.0F, 0.0F, 0.0F, 0.0F, 0.0F, 10.0F),
-                Blocks.MAGMA_BLOCK, Blocks.LAVA);
-        add(profiles, new EssenceProfile(95.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 80.0F, 0.0F),
-                Blocks.OBSIDIAN, Blocks.CRYING_OBSIDIAN);
-        add(profiles, new EssenceProfile(10.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 80.0F),
+
+        // 岩浆块: 坚固=低(20), 熵增=高(65), 光明=高(70), 共鸣=低(10)
+        add(profiles, new EssenceProfile(20.0F, 0.0F, 65.0F, 70.0F, 0.0F, 0.0F, 0.0F, 0.0F, 10.0F),
+                Blocks.MAGMA_BLOCK);
+
+        // 岩浆（液体）: 熵增=极高(85), 光明=高(70)
+        add(profiles, new EssenceProfile(5.0F, 0.0F, 85.0F, 70.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
+                Blocks.LAVA);
+
+        // 黑曜石: 坚固=极高(88), 时空=高(70)
+        add(profiles, new EssenceProfile(88.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 70.0F, 0.0F),
+                Blocks.OBSIDIAN);
+
+        // 哭泣的黑曜石: 坚固=极高(85), 时空=高(70), 暗影=中(40)
+        add(profiles, new EssenceProfile(85.0F, 0.0F, 0.0F, 0.0F, 40.0F, 0.0F, 0.0F, 70.0F, 0.0F),
+                Blocks.CRYING_OBSIDIAN);
+
+        // 海绵: 坚固=低(12), 生命=低(10), 共鸣=高(75)
+        add(profiles, new EssenceProfile(12.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 75.0F),
                 Blocks.SPONGE, Blocks.WET_SPONGE);
-        add(profiles, new EssenceProfile(5.0F, 30.0F, 0.0F, 0.0F, 0.0F, 10.0F, 0.0F, 0.0F, 30.0F),
+
+        // 蜂蜜块: 坚固=极低(8), 生命=中(40), 运动=低(15), 共鸣=中(45)
+        add(profiles, new EssenceProfile(8.0F, 40.0F, 0.0F, 0.0F, 0.0F, 15.0F, 0.0F, 0.0F, 45.0F),
                 Blocks.HONEY_BLOCK);
-        add(profiles, new EssenceProfile(5.0F, 30.0F, 0.0F, 0.0F, 0.0F, 80.0F, 0.0F, 0.0F, 30.0F),
+
+        // 史莱姆块: 坚固=极低(8), 生命=中(35), 运动=高(70), 共鸣=中(45)
+        add(profiles, new EssenceProfile(8.0F, 35.0F, 0.0F, 0.0F, 0.0F, 70.0F, 0.0F, 0.0F, 45.0F),
                 Blocks.SLIME_BLOCK);
-        add(profiles, new EssenceProfile(10.0F, 95.0F, 0.0F, 0.0F, 95.0F, 0.0F, 95.0F, 0.0F, 80.0F),
-                Blocks.SCULK, Blocks.SCULK_VEIN, Blocks.SCULK_CATALYST, Blocks.SCULK_SENSOR, Blocks.SCULK_SHRIEKER);
+
+        // 幽匿催发体: 坚固=低(18), 生命=极高(92), 暗影=极高(90), 心灵=极高(90), 共鸣=高(70)
+        // (sculk_catalyst gets the "catalyst" profile; other sculk blocks get reduced values)
+        add(profiles, new EssenceProfile(18.0F, 92.0F, 0.0F, 0.0F, 90.0F, 0.0F, 90.0F, 0.0F, 70.0F),
+                Blocks.SCULK_CATALYST);
+
+        // 幽匿块: 坚固=低(14), 生命=高(65), 暗影=高(70), 心灵=中(50), 共鸣=中(40)
+        add(profiles, new EssenceProfile(14.0F, 65.0F, 0.0F, 0.0F, 70.0F, 0.0F, 50.0F, 0.0F, 40.0F),
+                Blocks.SCULK);
+
+        // 幽匿脉络/传感器/尖啸体: less intense versions
+        add(profiles, new EssenceProfile(10.0F, 55.0F, 0.0F, 0.0F, 60.0F, 0.0F, 40.0F, 0.0F, 50.0F),
+                Blocks.SCULK_VEIN, Blocks.SCULK_SENSOR, Blocks.SCULK_SHRIEKER);
+
+        // 海晶石系列
         add(profiles, new EssenceProfile(30.0F, 0.0F, 0.0F, 30.0F, 0.0F, 0.0F, 80.0F, 10.0F, 30.0F),
                 Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS, Blocks.DARK_PRISMARINE, Blocks.CONDUIT);
-        add(profiles, new EssenceProfile(0.0F, 15.0F, 0.0F, 0.0F, 0.0F, 70.0F, 0.0F, 10.0F, 15.0F),
-                Blocks.WATER, Blocks.BUBBLE_COLUMN);
+
+        // ─── Redstone / mechanical blocks ───
         add(profiles, new EssenceProfile(20.0F, 0.0F, 0.0F, 20.0F, 0.0F, 20.0F, 0.0F, 0.0F, 90.0F),
                 Blocks.REDSTONE_BLOCK, Blocks.REDSTONE_WIRE, Blocks.REPEATER, Blocks.COMPARATOR, Blocks.OBSERVER);
-        add(profiles, new EssenceProfile(26, 8, 8, 0, 0, 6, 0, 0, 4),
+
+        // ─── Water ───
+        add(profiles, new EssenceProfile(0.0F, 15.0F, 0.0F, 0.0F, 0.0F, 70.0F, 0.0F, 10.0F, 15.0F),
+                Blocks.WATER, Blocks.BUBBLE_COLUMN);
+
+        // ─── Other functional blocks ───
+        add(profiles, new EssenceProfile(26.0F, 8.0F, 8.0F, 0.0F, 0.0F, 6.0F, 0.0F, 0.0F, 4.0F),
                 Blocks.CLAY);
-        add(profiles, new EssenceProfile(22, 46, 10, 0, 0, 0, 12, 0, 14),
+        add(profiles, new EssenceProfile(22.0F, 46.0F, 10.0F, 0.0F, 0.0F, 0.0F, 12.0F, 0.0F, 14.0F),
                 Blocks.CRAFTING_TABLE);
-        add(profiles, new EssenceProfile(56, 0, 12, 8, 4, 0, 8, 0, 10),
+        add(profiles, new EssenceProfile(56.0F, 0.0F, 12.0F, 8.0F, 4.0F, 0.0F, 8.0F, 0.0F, 10.0F),
                 Blocks.FURNACE);
-        add(profiles, new EssenceProfile(68, 0, 14, 10, 4, 0, 10, 0, 14),
+        add(profiles, new EssenceProfile(68.0F, 0.0F, 14.0F, 10.0F, 4.0F, 0.0F, 10.0F, 0.0F, 14.0F),
                 Blocks.BLAST_FURNACE);
-        add(profiles, new EssenceProfile(24, 38, 16, 10, 0, 0, 6, 0, 8),
+        add(profiles, new EssenceProfile(24.0F, 38.0F, 16.0F, 10.0F, 0.0F, 0.0F, 6.0F, 0.0F, 8.0F),
                 Blocks.SMOKER);
-        add(profiles, new EssenceProfile(62, 18, 0, 24, 12, 0, 42, 18, 36),
+        add(profiles, new EssenceProfile(62.0F, 18.0F, 0.0F, 24.0F, 12.0F, 0.0F, 42.0F, 18.0F, 36.0F),
                 Blocks.ENCHANTING_TABLE);
-        add(profiles, new EssenceProfile(84, 0, 6, 0, 0, 0, 10, 0, 18),
+        add(profiles, new EssenceProfile(84.0F, 0.0F, 6.0F, 0.0F, 0.0F, 0.0F, 10.0F, 0.0F, 18.0F),
                 Blocks.ANVIL);
-        add(profiles, new EssenceProfile(80, 0, 12, 0, 0, 0, 8, 0, 16),
+        add(profiles, new EssenceProfile(80.0F, 0.0F, 12.0F, 0.0F, 0.0F, 0.0F, 8.0F, 0.0F, 16.0F),
                 Blocks.CHIPPED_ANVIL);
-        add(profiles, new EssenceProfile(76, 0, 20, 0, 0, 0, 6, 0, 14),
+        add(profiles, new EssenceProfile(76.0F, 0.0F, 20.0F, 0.0F, 0.0F, 0.0F, 6.0F, 0.0F, 14.0F),
                 Blocks.DAMAGED_ANVIL);
-        add(profiles, new EssenceProfile(38, 0, 0, 48, 0, 0, 26, 20, 42),
+        add(profiles, new EssenceProfile(38.0F, 0.0F, 0.0F, 48.0F, 0.0F, 0.0F, 26.0F, 20.0F, 42.0F),
                 Blocks.BEACON);
-        add(profiles, new EssenceProfile(18, 40, 8, 0, 0, 0, 18, 0, 16),
+        add(profiles, new EssenceProfile(18.0F, 40.0F, 8.0F, 0.0F, 0.0F, 0.0F, 18.0F, 0.0F, 16.0F),
                 Blocks.LECTERN);
-        add(profiles, new EssenceProfile(10, 0, 0, 4, 18, 0, 0, 10, 24),
+        add(profiles, new EssenceProfile(10.0F, 0.0F, 0.0F, 4.0F, 18.0F, 0.0F, 0.0F, 10.0F, 24.0F),
                 Blocks.TINTED_GLASS);
-        add(profiles, new EssenceProfile(58, 0, 8, 8, 0, 0, 0, 0, 18),
+        add(profiles, new EssenceProfile(58.0F, 0.0F, 8.0F, 8.0F, 0.0F, 0.0F, 0.0F, 0.0F, 18.0F),
                 Blocks.EXPOSED_COPPER);
-        add(profiles, new EssenceProfile(58, 0, 14, 8, 0, 0, 0, 0, 18),
+        add(profiles, new EssenceProfile(54.0F, 0.0F, 14.0F, 6.0F, 0.0F, 0.0F, 0.0F, 0.0F, 16.0F),
                 Blocks.WEATHERED_COPPER);
-        add(profiles, new EssenceProfile(58, 0, 20, 8, 0, 0, 0, 0, 18),
+        add(profiles, new EssenceProfile(50.0F, 0.0F, 20.0F, 4.0F, 0.0F, 0.0F, 0.0F, 0.0F, 14.0F),
                 Blocks.OXIDIZED_COPPER);
-        add(profiles, new EssenceProfile(14, 30, 18, 16, 0, 4, 0, 0, 4),
+        add(profiles, new EssenceProfile(14.0F, 30.0F, 18.0F, 16.0F, 0.0F, 4.0F, 0.0F, 0.0F, 4.0F),
                 Blocks.CACTUS);
-        add(profiles, new EssenceProfile(2, 36, 26, 2, 12, 0, 0, 0, 8),
+        add(profiles, new EssenceProfile(2.0F, 36.0F, 26.0F, 2.0F, 12.0F, 0.0F, 0.0F, 0.0F, 8.0F),
                 Blocks.BROWN_MUSHROOM);
-        add(profiles, new EssenceProfile(2, 40, 30, 4, 14, 0, 0, 0, 10),
+        add(profiles, new EssenceProfile(2.0F, 40.0F, 30.0F, 4.0F, 14.0F, 0.0F, 0.0F, 0.0F, 10.0F),
                 Blocks.RED_MUSHROOM);
-        add(profiles, new EssenceProfile(68, 0, 24, 0, 18, 0, 0, 0, 6),
+        add(profiles, new EssenceProfile(68.0F, 0.0F, 24.0F, 0.0F, 18.0F, 0.0F, 0.0F, 0.0F, 6.0F),
                 Blocks.BLACKSTONE);
-        add(profiles, new EssenceProfile(62, 0, 16, 0, 8, 0, 0, 0, 4),
+        add(profiles, new EssenceProfile(62.0F, 0.0F, 16.0F, 0.0F, 8.0F, 0.0F, 0.0F, 0.0F, 4.0F),
                 Blocks.BASALT);
-        add(profiles, new EssenceProfile(66, 0, 12, 0, 6, 0, 0, 0, 4),
+        add(profiles, new EssenceProfile(66.0F, 0.0F, 12.0F, 0.0F, 6.0F, 0.0F, 0.0F, 0.0F, 4.0F),
                 Blocks.SMOOTH_BASALT);
-        add(profiles, new EssenceProfile(58, 0, 22, 0, 16, 0, 0, 0, 8),
+        add(profiles, new EssenceProfile(58.0F, 0.0F, 22.0F, 0.0F, 16.0F, 0.0F, 0.0F, 0.0F, 8.0F),
                 Blocks.NETHER_BRICKS);
-        add(profiles, new EssenceProfile(42, 0, 4, 12, 0, 0, 0, 6, 18),
+        add(profiles, new EssenceProfile(42.0F, 0.0F, 4.0F, 12.0F, 0.0F, 0.0F, 0.0F, 6.0F, 18.0F),
                 Blocks.QUARTZ_BRICKS);
+
+        // ─── 紫珀块 (Purpur Block): 坚固=中(40), 光明=低(12), 暗影=中(45), 时空=高(70), 共鸣=中(40) ───
+        add(profiles, new EssenceProfile(40.0F, 0.0F, 0.0F, 12.0F, 45.0F, 0.0F, 0.0F, 70.0F, 40.0F),
+                Blocks.PURPUR_BLOCK, Blocks.PURPUR_PILLAR, Blocks.PURPUR_SLAB, Blocks.PURPUR_STAIRS);
+
         return profiles;
     }
 

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "minecraft:ender_eye",
+    "P": "minecraft:ender_pearl",
+    "Q": "minecraft:quartz_block",
+    "S": "essentialism:simple_analyzer"
+  },
+  "pattern": [
+    "QPQ",
+    "ESE",
+    "QPQ"
+  ],
+  "result": {
+    "id": "essentialism:advanced_spectrometer"
+  }
+}

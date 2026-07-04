@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "essentialism:analyzers_lens",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "IRI",
+    "RAR",
+    "IRI"
+  ],
+  "result": {
+    "id": "essentialism:simple_analyzer"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:amethyst_block",
+    "C": "minecraft:sculk_catalyst",
+    "N": "minecraft:netherite_ingot",
+    "S": "minecraft:soul_sand"
+  },
+  "pattern": [
+    "NCN",
+    "SAS",
+    "NCN"
+  ],
+  "result": {
+    "id": "essentialism:soul_centrifuge"
+  }
+}

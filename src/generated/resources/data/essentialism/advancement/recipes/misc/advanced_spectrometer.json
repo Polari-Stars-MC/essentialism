@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_simple_analyzer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "essentialism:simple_analyzer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "essentialism:advanced_spectrometer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_simple_analyzer"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "essentialism:advanced_spectrometer"
+    ]
+  }
+}

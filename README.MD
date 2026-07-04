@@ -19,12 +19,13 @@
 
 ## 当前状态
 
-目前仓库主要承载的是概念设计文档。已知本项目目标技术栈为 `NeoForge 26.1.2`，但仓库当前仍以玩法与设定设计为主，尚未整理出可直接说明实现结构的源码与模块说明。因此这份 `README` 现在更适合作为：
+仓库已实现 NeoForge 26.1.2 下的核心玩法循环和主要装置系统。代码结构清晰，基于 registrum 注册框架。
 
-- 项目设定总览
-- 玩法设计蓝图
-- 后续开发拆分依据
-- 美术、文案、程序协作时的统一参考
+**已完成：** 本质数据模型 / 解析者透镜 / 简易解析器 / 9 种本质溶液 / 灵魂离心机 / 进阶光谱仪 / 符文矩阵编纂桌 / EssenceType 增强（等级/相互作用/工具效率/哲学注脚）/ 区块本质共振 / 本质枯竭 / 本质异变 / 本质共鸣矩阵 / 悖论物品 / 配方数据系统 / 游戏阶段里程碑 / 生物群系本质影响 / 粒子效果管理器 / 自定义状态效果 / 游戏内指南书 / 重构产物（虚空之刃、时间之桶、记忆结晶、哀悼草）
+
+**进行中：** 性能优化 / 崩溃修复
+
+**计划中：** 演示世界 / 数据包配方示例
 
 ## 设计目标
 
@@ -464,41 +465,47 @@
 
 ## 开发路线图
 
-### Phase 1：核心循环（1-2 周）
+### Phase 1：核心循环（1-2 周）✅ 已完成
 
-- [ ] 本质注册系统
-- [ ] 方块本质自动生成公式
-- [ ] 解析者透镜（基础版）
-- [ ] 简易解析器方块
-- [ ] 1-2 个基础重构配方
+- [x] 本质注册系统
+- [x] 方块本质自动生成公式
+- [x] 解析者透镜（基础版）
+- [x] 简易解析器方块
+- [x] 1-2 个基础重构配方
+- [x] 9 种本质溶液物品
 
-### Phase 2：深化玩法（2-3 周）
+### Phase 2：深化玩法（2-3 周）✅ 已完成
 
-- [ ] 灵魂离心机
-- [ ] 进阶光谱仪
-- [ ] 符文矩阵编纂桌
-- [ ] 本质溶液系统
-- [ ] 10+ 个重构配方
+- [x] 灵魂离心机
+- [x] 进阶光谱仪
+- [x] 符文矩阵编纂桌
+- [x] 本质溶液系统
+- [x] EssenceType 等级体系 + 相互作用 + 工具效率
+- [x] 10+ 个重构配方
 
-### Phase 3：世界交互（1-2 周）
+### Phase 3：世界交互（1-2 周）✅ 已完成
 
-- [ ] 区块本质共振
-- [ ] 本质枯竭机制
-- [ ] 稀有变异体生成
-- [ ] 生物群系本质影响
+- [x] 区块本质共振
+- [x] 本质枯竭机制
+- [x] 稀有变异体生成
+- [x] 生物群系本质影响
 
-### Phase 4：视觉与文案（1-2 周）
+### Phase 4：视觉与文案（1-2 周）✅ 已完成
 
-- [ ] 本质共鸣矩阵（多方块结构）
-- [ ] 粒子效果完善
-- [ ] 游戏内指南书
-- [ ] 终局悖论物品
+- [x] 本质共鸣矩阵（多方块结构）
+- [x] 终局悖论物品
+- [x] 配方数据系统（JSON 数据驱动）
+- [x] 游戏阶段里程碑追踪
+- [x] 粒子效果管理器
+- [x] 自定义状态效果（本质超载/灵韵枯萎/共鸣过载/时空眩晕）
+- [x] 游戏内指南书（《本质主义》第一卷，右键翻阅）
+- [x] 重构产物（虚空之刃/时间之桶/记忆结晶/哀悼草）
 
-### Phase 5：打磨与发布（1 周）
+### Phase 5：打磨与发布（1 周）🔄 进行中
 
+- [x] 发布包整理
 - [ ] 性能优化
 - [ ] 崩溃修复
-- [ ] 发布包整理
 - [ ] 演示世界或展示区域
 
 ### 开发优先级建议
@@ -566,6 +573,47 @@
 
 ---
 
-*“世界从未向你隐藏，你只是从未学会观看。”*
+## 代码架构简述
+
+```
+src/main/java/com/essentialism/
+├── Essentialism.java              # @Mod 主类，注册入口
+├── EssentialismClient.java        # 客户端注册
+├── config/
+│   └── EssenceConfig.java         # 配置（玩家透镜开关等）
+├── content/
+│   ├── block/                     # 方块类（SimpleAnalyzer, SoulCentrifuge, AdvancedSpectrometer, RuneMatrix）
+│   ├── block/entity/              # BlockEntity（方块逻辑+数据同步）
+│   ├── data/                      # 玩家附件数据（扫描记录）
+│   ├── essence/                   # 核心本质系统
+│   │   ├── EssenceType.java       # 九大本质枚举（等级/相互作用/工具效率/哲学注脚）
+│   │   ├── EssenceLevel.java      # 浓度等级（无/微/低/中/高/极高/无限）
+│   │   ├── EssenceInteraction.java# 本质间相互作用（相克/协作/同谋等）
+│   │   ├── EssenceProfile.java    # 本质档案记录（9 个 float）
+│   │   ├── EssenceProfiles.java   # 方块/实体本质档案注册与解析
+│   │   ├── EssenceProfilePatch.java# JSON 数据 → EssenceProfile 合并
+│   │   └── CombinedEssenceType.java# 复合本质检测（暮光/悖论/静止等）
+│   ├── item/                      # 物品（AnalyzerLens, EssenceSolution, ParadoxItem, ReconstructedItem, EssentialismGuideBookItem）
+│   ├── mechanic/                  # 游戏机制
+│   │   ├── EssenceResonance.java  # 区块本质共振
+│   │   ├── EssenceDepletion.java  # 本质枯竭
+│   │   ├── EssenceMutation.java   # 本质异变
+│   │   ├── BiomeEssenceInfluence.java # 生物群系本质亲和
+│   │   ├── EssenceParticleManager.java # 粒子效果管理
+│   │   ├── EssenceEffects.java    # 自定义状态效果（overload/wither/resonance/vertigo）
+│   │   └── MilestoneTracker.java  # 游戏阶段里程碑（5 阶段）
+│   ├── menu/                      # Menu 定义 + 注册
+│   └── recipe/                    # 配方数据系统
+├── client/screen/                 # Screen 渲染
+├── data/                          # Datagen（EssenceProfileProvider）
+├── init/                          # 注册中心（EItems, EMenus, EBlockEntities, EAttachments, ETriggers）
+└── network/                       # 网络包
+```
+
+数据驱动：方块本质档案通过 `src/generated/resources/data/*/essentialism/block_essence_profiles/` 下的 JSON 定义，由 `EssenceProfileProvider` datagen 生成。
+
+---
+
+*”世界从未向你隐藏，你只是从未学会观看。”*
 
 *——《本质主义》，第一卷，序言*

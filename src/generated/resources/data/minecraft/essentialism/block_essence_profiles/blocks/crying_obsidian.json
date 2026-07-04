@@ -6,9 +6,9 @@
     "mind": 0.0,
     "motion": 0.0,
     "resonance": 0.0,
-    "shadow": 0.0,
-    "solidity": 95.0,
-    "spacetime": 80.0
+    "shadow": 40.0,
+    "solidity": 85.0,
+    "spacetime": 70.0
   },
   "replace": false
 }
