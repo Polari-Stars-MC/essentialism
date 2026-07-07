@@ -1,6 +1,5 @@
 package com.essentialism.content.essence;
 
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -47,15 +46,12 @@ public enum CombinedEssenceType {
     }
 
     public static List<Component> detect(EssenceProfile profile) {
-        List<Component> lines = new ArrayList<>();
-        for (CombinedEssenceType type : values()) {
-            if (type.matches(profile)) {
-                lines.add(Component.translatable(
+        return java.util.Arrays.stream(values())
+                .filter(type -> type.matches(profile))
+                .<Component>map(type -> Component.translatable(
                         "message.essentialism.analyzers_lens.combined_entry",
                         type.displayName()
-                ));
-            }
-        }
-        return lines;
+                ))
+                .toList();
     }
 }

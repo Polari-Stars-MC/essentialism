@@ -62,68 +62,24 @@ public class EItems {
             .lang("Analyzer's Lens")
             .register();
 
-    public static final ItemEntry<EssenceSolutionItem> SOLIDITY_SOLUTION = Essentialism.ESSENER
-            .item("solidity_solution", p -> new EssenceSolutionItem(p, EssenceType.SOLIDITY))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Solidity Solution")
-            .register();
+    private static ItemEntry<EssenceSolutionItem> registerSolution(String id, String name, EssenceType type) {
+        return Essentialism.ESSENER
+                .item(id, p -> new EssenceSolutionItem(p, type))
+                .properties(p -> p.stacksTo(16))
+                .defaultModel()
+                .lang(name)
+                .register();
+    }
 
-    public static final ItemEntry<EssenceSolutionItem> LIFE_SOLUTION = Essentialism.ESSENER
-            .item("life_solution", p -> new EssenceSolutionItem(p, EssenceType.LIFE))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Life Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> DECAY_SOLUTION = Essentialism.ESSENER
-            .item("decay_solution", p -> new EssenceSolutionItem(p, EssenceType.DECAY))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Decay Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> LIGHT_SOLUTION = Essentialism.ESSENER
-            .item("light_solution", p -> new EssenceSolutionItem(p, EssenceType.LIGHT))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Light Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> SHADOW_SOLUTION = Essentialism.ESSENER
-            .item("shadow_solution", p -> new EssenceSolutionItem(p, EssenceType.SHADOW))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Shadow Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> MOTION_SOLUTION = Essentialism.ESSENER
-            .item("motion_solution", p -> new EssenceSolutionItem(p, EssenceType.MOTION))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Motion Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> MIND_SOLUTION = Essentialism.ESSENER
-            .item("mind_solution", p -> new EssenceSolutionItem(p, EssenceType.MIND))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Mind Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> SPACETIME_SOLUTION = Essentialism.ESSENER
-            .item("spacetime_solution", p -> new EssenceSolutionItem(p, EssenceType.SPACETIME))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Spacetime Solution")
-            .register();
-
-    public static final ItemEntry<EssenceSolutionItem> RESONANCE_SOLUTION = Essentialism.ESSENER
-            .item("resonance_solution", p -> new EssenceSolutionItem(p, EssenceType.RESONANCE))
-            .properties(p -> p.stacksTo(16))
-            .defaultModel()
-            .lang("Resonance Solution")
-            .register();
+    public static final ItemEntry<EssenceSolutionItem> SOLIDITY_SOLUTION  = registerSolution("solidity_solution",  "Solidity Solution",  EssenceType.SOLIDITY);
+    public static final ItemEntry<EssenceSolutionItem> LIFE_SOLUTION      = registerSolution("life_solution",      "Life Solution",      EssenceType.LIFE);
+    public static final ItemEntry<EssenceSolutionItem> DECAY_SOLUTION     = registerSolution("decay_solution",     "Decay Solution",     EssenceType.DECAY);
+    public static final ItemEntry<EssenceSolutionItem> LIGHT_SOLUTION     = registerSolution("light_solution",     "Light Solution",     EssenceType.LIGHT);
+    public static final ItemEntry<EssenceSolutionItem> SHADOW_SOLUTION    = registerSolution("shadow_solution",    "Shadow Solution",    EssenceType.SHADOW);
+    public static final ItemEntry<EssenceSolutionItem> MOTION_SOLUTION    = registerSolution("motion_solution",    "Motion Solution",    EssenceType.MOTION);
+    public static final ItemEntry<EssenceSolutionItem> MIND_SOLUTION      = registerSolution("mind_solution",      "Mind Solution",      EssenceType.MIND);
+    public static final ItemEntry<EssenceSolutionItem> SPACETIME_SOLUTION = registerSolution("spacetime_solution", "Spacetime Solution", EssenceType.SPACETIME);
+    public static final ItemEntry<EssenceSolutionItem> RESONANCE_SOLUTION = registerSolution("resonance_solution", "Resonance Solution", EssenceType.RESONANCE);
 
     public static final BlockEntry<SoulCentrifugeBlock> SOUL_CENTRIFUGE = Essentialism.ESSENER
             .block("soul_centrifuge", SoulCentrifugeBlock::new)
@@ -281,6 +237,7 @@ public class EItems {
             })
             .register();
 
+    /** Called by AnvilLib during static initialization to trigger field registration. */
     public static void register() {}
 
     public static final BlockEntry<SimpleAnalyzerBlock> SIMPLE_ANALYZER = Essentialism.ESSENER

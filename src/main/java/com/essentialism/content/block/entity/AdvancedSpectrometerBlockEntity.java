@@ -10,9 +10,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Advanced Spectrometer — batch scans up to 9 items, shows essence charts,
  * predicts chunk resonance thresholds, and identifies rare variants.
  */
-public class AdvancedSpectrometerBlockEntity extends BlockEntity implements MenuProvider {
+public class AdvancedSpectrometerBlockEntity extends BaseBlockEntity implements MenuProvider {
 
     public static final int SLOT_COUNT = 9;
     public static final int DATA_COUNT = 81; // 9 slots × 9 essence types
@@ -122,9 +118,9 @@ public class AdvancedSpectrometerBlockEntity extends BlockEntity implements Menu
             EssenceProfile profile = EssenceProfiles.resolveBlockFromItem(stack);
             if (profile != null) {
                 int base = slot * 9;
+                EssenceType[] types = EssenceType.values();
                 for (int i = 0; i < 9; i++) {
-                    EssenceType type = EssenceType.values()[i];
-                    essenceDisplay[base + i] = Math.round(profile.get(type));
+                    essenceDisplay[base + i] = Math.round(profile.get(types[i]));
                 }
             }
         }
@@ -185,18 +181,6 @@ public class AdvancedSpectrometerBlockEntity extends BlockEntity implements Menu
         output.putIntArray("EssenceDisplay", essenceDisplay);
         tag.merge(output.buildResult());
         return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public void syncToClient() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-        }
     }
 
     @Override

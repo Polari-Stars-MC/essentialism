@@ -5,11 +5,9 @@ import com.essentialism.content.mechanic.EssenceResonance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * When the configured essence type exceeds the threshold,
  * emits a redstone signal and triggers area alerts.
  */
-public class EssenceResonanceMatrixBlockEntity extends BlockEntity {
+public class EssenceResonanceMatrixBlockEntity extends BaseBlockEntity {
 
     private static final int SCAN_RADIUS = 32;
     private static final int SCAN_INTERVAL = 100; // every 5 seconds
@@ -74,7 +72,7 @@ public class EssenceResonanceMatrixBlockEntity extends BlockEntity {
     }
 
     private void scanEssence() {
-        ChunkPos chunkPos = new ChunkPos(this.worldPosition.getX() >> 4, this.worldPosition.getZ() >> 4);
+        ChunkPos chunkPos = new ChunkPos(this.worldPosition);
         this.currentEssenceValue = EssenceResonance.getChunkEssence(chunkPos, this.monitoredType);
 
         // Also sample neighboring chunks within radius
@@ -84,7 +82,9 @@ public class EssenceResonanceMatrixBlockEntity extends BlockEntity {
         for (int dx = -radiusChunks; dx <= radiusChunks; dx++) {
             for (int dz = -radiusChunks; dz <= radiusChunks; dz++) {
                 if (dx == 0 && dz == 0) continue;
-                ChunkPos neighbor = new ChunkPos(chunkPos.getMinBlockX() >> 4 + dx, chunkPos.getMinBlockZ() >> 4 + dz);
+                int neighborX = (chunkPos.getMinBlockX() >> 4) + dx;
+                int neighborZ = (chunkPos.getMinBlockZ() >> 4) + dz;
+                ChunkPos neighbor = new ChunkPos(neighborX, neighborZ);
                 total += EssenceResonance.getChunkEssence(neighbor, this.monitoredType);
                 count++;
             }
@@ -126,12 +126,6 @@ public class EssenceResonanceMatrixBlockEntity extends BlockEntity {
         tag.putFloat("CurrentValue", this.currentEssenceValue);
         tag.putInt("RedstoneOutput", this.redstoneOutput);
         return tag;
-    }
-
-    public void syncToClient() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        }
     }
 
     @Override

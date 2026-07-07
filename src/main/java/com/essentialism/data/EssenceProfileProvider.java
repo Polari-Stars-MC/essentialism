@@ -52,43 +52,34 @@ public class EssenceProfileProvider implements DataProvider {
     private CompletableFuture<?> writeBlockProfile(CachedOutput output, Identifier blockId, EssenceProfile profile) {
         Path target = this.blockPathProvider.json(blockId);
         BlockEssenceProfileDefinition definition = new BlockEssenceProfileDefinition(false, EssenceProfilePatch.of(profile));
-        JsonElement encodedProfile = BlockEssenceProfileDefinition.CODEC.encodeStart(JsonOps.INSTANCE, definition)
-                .getOrThrow(error -> new IllegalStateException("Failed to encode block profile for " + blockId + ": " + error));
-        JsonObject encoded = encodedProfile.getAsJsonObject();
-        encoded.addProperty("replace", definition.replace());
-        return DataProvider.saveStable(output, encoded, target);
+        return writeDefinition(output, target, BlockEssenceProfileDefinition.CODEC, definition);
     }
 
     private CompletableFuture<?> writeBlockTagProfile(CachedOutput output, TagKey<Block> tag, EssenceProfile profile) {
-        Identifier tagId = tag.location();
-        Path target = this.blockTagPathProvider.json(tagId);
+        Path target = this.blockTagPathProvider.json(tag.location());
         BlockEssenceProfileDefinition definition = new BlockEssenceProfileDefinition(false, EssenceProfilePatch.of(profile));
-        JsonElement encodedProfile = BlockEssenceProfileDefinition.CODEC.encodeStart(JsonOps.INSTANCE, definition)
-                .getOrThrow(error -> new IllegalStateException("Failed to encode tag profile for " + tagId + ": " + error));
-        JsonObject encoded = encodedProfile.getAsJsonObject();
-        encoded.addProperty("replace", definition.replace());
-        return DataProvider.saveStable(output, encoded, target);
+        return writeDefinition(output, target, BlockEssenceProfileDefinition.CODEC, definition);
     }
 
     private CompletableFuture<?> writeEntityProfile(CachedOutput output, Identifier entityId, EssenceProfile profile) {
         Path target = this.entityPathProvider.json(entityId);
         EntityEssenceProfileDefinition definition = new EntityEssenceProfileDefinition(false, EssenceProfilePatch.of(profile));
-        JsonElement encodedProfile = EntityEssenceProfileDefinition.CODEC.encodeStart(JsonOps.INSTANCE, definition)
-                .getOrThrow(error -> new IllegalStateException("Failed to encode entity profile for " + entityId + ": " + error));
-        JsonObject encoded = encodedProfile.getAsJsonObject();
-        encoded.addProperty("replace", definition.replace());
-        return DataProvider.saveStable(output, encoded, target);
+        return writeDefinition(output, target, EntityEssenceProfileDefinition.CODEC, definition);
     }
 
     private CompletableFuture<?> writeEntityTagProfile(CachedOutput output, TagKey<EntityType<?>> tag, EssenceProfile profile) {
-        Identifier tagId = tag.location();
-        Path target = this.entityTagPathProvider.json(tagId);
+        Path target = this.entityTagPathProvider.json(tag.location());
         EntityEssenceProfileDefinition definition = new EntityEssenceProfileDefinition(false, EssenceProfilePatch.of(profile));
-        JsonElement encodedProfile = EntityEssenceProfileDefinition.CODEC.encodeStart(JsonOps.INSTANCE, definition)
-                .getOrThrow(error -> new IllegalStateException("Failed to encode entity tag profile for " + tagId + ": " + error));
-        JsonObject encoded = encodedProfile.getAsJsonObject();
-        encoded.addProperty("replace", definition.replace());
-        return DataProvider.saveStable(output, encoded, target);
+        return writeDefinition(output, target, EntityEssenceProfileDefinition.CODEC, definition);
+    }
+
+    private static <T> CompletableFuture<?> writeDefinition(CachedOutput output, Path target,
+            com.mojang.serialization.Codec<T> codec, T definition) {
+        JsonElement encoded = codec.encodeStart(JsonOps.INSTANCE, definition)
+                .getOrThrow(error -> new IllegalStateException("Failed to encode: " + error));
+        JsonObject obj = encoded.getAsJsonObject();
+        obj.addProperty("replace", false);
+        return DataProvider.saveStable(output, obj, target);
     }
 
     @Override

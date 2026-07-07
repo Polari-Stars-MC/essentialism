@@ -49,8 +49,8 @@ public final class EssenceDepletion {
      */
     private static final Map<BlockPos, DepletionEntry> DEPLETION_MAP = new ConcurrentHashMap<>();
 
-    /** Tracks when we last emitted particles */
-    private static long lastParticleTick = 0;
+    /** Tracks when we last emitted particles per level */
+    private static final Map<Level, Long> LAST_PARTICLE_TICK = new WeakHashMap<>();
 
     private EssenceDepletion() {}
 
@@ -82,7 +82,7 @@ public final class EssenceDepletion {
 
         if (entry.depleted) {
             // Depleted: 10% chance of permanent destruction
-            if (Math.random() < DESTROY_CHANCE) {
+            if (event.getLevel().getRandom().nextFloat() < DESTROY_CHANCE) {
                 DEPLETION_MAP.remove(pos);
                 // Replace with air (permanent disappearance)
                 event.getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
@@ -108,8 +108,9 @@ public final class EssenceDepletion {
         Level level = event.getLevel();
         long gameTime = level.getGameTime();
 
-        if (gameTime - lastParticleTick < PARTICLE_INTERVAL) return;
-        lastParticleTick = gameTime;
+        Long lastTick = LAST_PARTICLE_TICK.get(level);
+        if (lastTick != null && gameTime - lastTick < PARTICLE_INTERVAL) return;
+        LAST_PARTICLE_TICK.put(level, gameTime);
 
         Iterator<Map.Entry<BlockPos, DepletionEntry>> iter = DEPLETION_MAP.entrySet().iterator();
         while (iter.hasNext()) {

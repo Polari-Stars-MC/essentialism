@@ -1,6 +1,5 @@
 package com.essentialism.advancement;
 
-import com.essentialism.Essentialism;
 import com.essentialism.content.data.AnalyzerLensScanData;
 import com.essentialism.init.EAttachments;
 import com.mojang.serialization.Codec;

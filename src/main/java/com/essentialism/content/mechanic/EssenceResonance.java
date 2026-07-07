@@ -40,7 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class EssenceResonance {
 
     /** Decay factor per tick (0.9999 = 0.01% decay per tick) */
-    private static final float DECAY_PER_TICK = 0.9999F;
+    private static final double DECAY_PER_TICK = 0.9999D;
 
     /** How often (in ticks) to apply resonance effects */
     private static final int EFFECT_INTERVAL = 40; // every 2 seconds
@@ -60,6 +60,10 @@ public final class EssenceResonance {
             EssenceType.SPACETIME, 2000,
             EssenceType.RESONANCE, 3000
     );
+
+    /** Pre-cached threshold entries to avoid iterator allocation in applyEffects. */
+    private static final Map.Entry<EssenceType, Integer>[] THRESHOLD_ENTRIES =
+            THRESHOLDS.entrySet().toArray(new Map.Entry[0]);
 
     /**
      * Chunk → (EssenceType → accumulated float value).
@@ -142,7 +146,7 @@ public final class EssenceResonance {
 
             for (Iterator<Map.Entry<EssenceType, Float>> typeIter = values.entrySet().iterator(); typeIter.hasNext(); ) {
                 Map.Entry<EssenceType, Float> typeEntry = typeIter.next();
-                float decayed = typeEntry.getValue() * DECAY_PER_TICK;
+                float decayed = (float) (typeEntry.getValue() * DECAY_PER_TICK);
                 if (decayed < 0.5F) {
                     typeIter.remove(); // drop to zero
                 } else {
@@ -166,7 +170,7 @@ public final class EssenceResonance {
             Map<EssenceType, Float> chunkValues = CHUNK_ESSENCE.get(chunkPos);
             if (chunkValues == null || chunkValues.isEmpty()) continue;
 
-            for (Map.Entry<EssenceType, Integer> thresholdEntry : THRESHOLDS.entrySet()) {
+            for (Map.Entry<EssenceType, Integer> thresholdEntry : THRESHOLD_ENTRIES) {
                 EssenceType type = thresholdEntry.getKey();
                 int threshold = thresholdEntry.getValue();
                 Float accumulated = chunkValues.get(type);

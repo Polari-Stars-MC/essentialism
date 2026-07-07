@@ -100,6 +100,10 @@ public class AnalyzerLensItem extends Item {
         if (player.getMainHandItem() != stack && player.getOffhandItem() != stack) {
             return;
         }
+        // Throttle raycast to every 4 ticks to reduce server load
+        if (level.getGameTime() % 4 != 0) {
+            return;
+        }
         HitResult focus = findFocus(player);
         if (focus == null || isDisallowedPlayerTarget(player, focus)) {
             return;
@@ -154,7 +158,7 @@ public class AnalyzerLensItem extends Item {
         }
 
         EssenceProfile profile = EssenceProfiles.get(livingEntity);
-        if (profile == null || !Essentialism.ESSENCE_CONFIG.isPlayerEssence) {
+        if (profile == null) {
             return;
         }
 

@@ -1,5 +1,6 @@
 package com.essentialism.content.block;
 
+import com.essentialism.content.block.entity.EBlockEntities;
 import com.essentialism.content.block.entity.EssenceResonanceMatrixBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -42,7 +43,7 @@ public class EssenceResonanceMatrixBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new EssenceResonanceMatrixBlockEntity(null, pos, state);
+        return new EssenceResonanceMatrixBlockEntity(EBlockEntities.ESSENCE_RESONANCE_MATRIX.get(), pos, state);
     }
 
     @Nullable

@@ -13,7 +13,7 @@ public final class ETriggers {
 
     private ETriggers() {}
 
+    /** Called by AnvilLib during static initialization to trigger field registration. */
     public static void register() {
-
     }
 }

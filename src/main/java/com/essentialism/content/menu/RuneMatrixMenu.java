@@ -184,14 +184,7 @@ public class RuneMatrixMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        if (blockEntity == null) return true;
-        return this.blockEntity.getLevel() != null
-                && this.blockEntity.getLevel().getBlockEntity(this.blockEntity.getBlockPos()) == this.blockEntity
-                && player.distanceToSqr(
-                        this.blockEntity.getBlockPos().getX() + 0.5,
-                        this.blockEntity.getBlockPos().getY() + 0.5,
-                        this.blockEntity.getBlockPos().getZ() + 0.5
-                ) <= 64.0;
+        return EMenus.stillValid(blockEntity, player);
     }
 
     public int getExpCost() {

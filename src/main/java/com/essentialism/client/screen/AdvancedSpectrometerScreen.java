@@ -57,26 +57,12 @@ public class AdvancedSpectrometerScreen extends AbstractContainerScreen<Advanced
 
             extractor.fill(barX, y + CHART_Y, barX + BAR_WIDTH, y + CHART_Y + BAR_MAX_HEIGHT, 0xFF222222);
             if (barHeight > 0) {
-                extractor.fill(barX, barY, barX + BAR_WIDTH, barY + barHeight, getColorForEssence(types[i]));
+                extractor.fill(barX, barY, barX + BAR_WIDTH, barY + barHeight, types[i].argbColor());
             }
 
             Component label = Component.translatable(types[i].translationKey());
             extractor.centeredText(this.getFont(), label,
                     barX + BAR_WIDTH / 2, y + CHART_Y + BAR_MAX_HEIGHT + 2, 0xFFFFFFFF);
         }
-    }
-
-    private static int getColorForEssence(EssenceType type) {
-        return switch (type) {
-            case SOLIDITY -> 0xFFAAAAAA;
-            case LIFE -> 0xFF55FF55;
-            case DECAY -> 0xFFAA0000;
-            case LIGHT -> 0xFFFFAA00;
-            case SHADOW -> 0xFFAA00AA;
-            case MOTION -> 0xFF55FFFF;
-            case MIND -> 0xFFFF55FF;
-            case SPACETIME -> 0xFF5555FF;
-            case RESONANCE -> 0xFFFFFF55;
-        };
     }
 }

@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -34,6 +35,11 @@ public record EssenceProfile(
 
     private static final DecimalFormat VALUE_FORMAT = new DecimalFormat("0.##");
 
+    // External cache for computed components — Java records can't have non-static fields
+    private static final ConcurrentHashMap<EssenceProfile, Component> SUMMARY_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<EssenceProfile, Component> DETAILED_CACHE = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<EssenceProfile, List<Component>> DOMINANT_CACHE = new ConcurrentHashMap<>();
+
     public float get(EssenceType type) {
         return switch (type) {
             case SOLIDITY -> this.solidity;
@@ -49,6 +55,10 @@ public record EssenceProfile(
     }
 
     public Component summaryComponent() {
+        return SUMMARY_CACHE.computeIfAbsent(this, EssenceProfile::buildSummaryComponent);
+    }
+
+    private Component buildSummaryComponent() {
         MutableComponent text = Component.empty();
         boolean first = true;
         for (EssenceType type : EssenceType.values()) {
@@ -70,6 +80,10 @@ public record EssenceProfile(
     }
 
     public Component detailedComponent() {
+        return DETAILED_CACHE.computeIfAbsent(this, EssenceProfile::buildDetailedComponent);
+    }
+
+    private Component buildDetailedComponent() {
         MutableComponent text = Component.empty();
         boolean first = true;
         for (EssenceType type : EssenceType.values()) {
@@ -84,19 +98,13 @@ public record EssenceProfile(
     }
 
     public List<Component> dominantComponents() {
-        List<EssenceValue> ranked = new ArrayList<>();
-        for (EssenceType type : EssenceType.values()) {
-            float value = this.get(type);
-            if (value > 0.0F) {
-                ranked.add(new EssenceValue(type, value));
-            }
-        }
-        ranked.sort(Comparator.comparing(EssenceValue::value).reversed());
+        return DOMINANT_CACHE.computeIfAbsent(this, EssenceProfile::buildDominantComponents);
+    }
 
-        List<Component> lines = new ArrayList<>();
-        int limit = Math.min(3, ranked.size());
-        for (int i = 0; i < limit; i++) {
-            EssenceValue entry = ranked.get(i);
+    private List<Component> buildDominantComponents() {
+        List<EssenceValue> ranked = topEssences(3);
+        List<Component> lines = new ArrayList<>(ranked.size());
+        for (EssenceValue entry : ranked) {
             lines.add(Component.translatable(
                     "message.essentialism.analyzers_lens.dominant_entry",
                     Component.translatable(entry.type.translationKey()).withStyle(entry.type.color()),
@@ -110,5 +118,21 @@ public record EssenceProfile(
         return VALUE_FORMAT.format(value);
     }
 
-    private record EssenceValue(EssenceType type, float value) {}
+    public record EssenceValue(EssenceType type, float value) {}
+
+    /**
+     * Returns the top-N essence types by value, sorted descending.
+     * Used by dominantComponents() and SoulCentrifuge processing.
+     */
+    public List<EssenceValue> topEssences(int limit) {
+        List<EssenceValue> ranked = new ArrayList<>();
+        for (EssenceType type : EssenceType.values()) {
+            float value = this.get(type);
+            if (value > 0.0F) {
+                ranked.add(new EssenceValue(type, value));
+            }
+        }
+        ranked.sort(Comparator.comparing(EssenceValue::value).reversed());
+        return ranked.size() > limit ? ranked.subList(0, limit) : ranked;
+    }
 }
