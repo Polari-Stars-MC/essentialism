@@ -3,17 +3,12 @@ package com.essentialism.content.block.entity;
 import com.essentialism.content.essence.EssenceProfile;
 import com.essentialism.content.essence.EssenceProfiles;
 import com.essentialism.content.essence.EssenceType;
-import com.essentialism.content.item.EssenceSolutionItem;
 import com.essentialism.content.menu.SoulCentrifugeMenu;
-import com.essentialism.init.EItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,14 +19,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Soul Centrifuge — separates mixed-essence items into pure essence solutions.
@@ -39,7 +30,7 @@ import java.util.List;
  * 1 input slot + 3 output slots. Processing consumes experience levels.
  * The dominant essences of the input item are extracted into solution bottles.
  */
-public class SoulCentrifugeBlockEntity extends BlockEntity implements MenuProvider {
+public class SoulCentrifugeBlockEntity extends BaseBlockEntity implements MenuProvider {
 
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_OUTPUT_1 = 1;
@@ -136,21 +127,11 @@ public class SoulCentrifugeBlockEntity extends BlockEntity implements MenuProvid
         EssenceProfile profile = EssenceProfiles.resolveBlockFromItem(input);
         if (profile == null) return;
 
-        // Find dominant essences (top 3)
-        List<EssenceValue> ranked = new ArrayList<>();
-        for (EssenceType type : EssenceType.values()) {
-            float value = profile.get(type);
-            if (value > 0) {
-                ranked.add(new EssenceValue(type, value));
-            }
-        }
-        ranked.sort(Comparator.comparing(EssenceValue::value).reversed());
-
-        // Extract top 1-3 essences into output slots
+        // Extract dominant essences (top 3) into output slots
+        var ranked = profile.topEssences(3);
         int outputIndex = SLOT_OUTPUT_1;
-        for (int i = 0; i < Math.min(3, ranked.size()); i++) {
-            EssenceValue entry = ranked.get(i);
-            Item solutionItem = getSolutionItem(entry.type);
+        for (var entry : ranked) {
+            Item solutionItem = getSolutionItem(entry.type());
             if (solutionItem != null) {
                 setOutputStack(outputIndex, new ItemStack(solutionItem, 1));
                 outputIndex++;
@@ -162,17 +143,8 @@ public class SoulCentrifugeBlockEntity extends BlockEntity implements MenuProvid
     }
 
     private static Item getSolutionItem(EssenceType type) {
-        return switch (type) {
-            case SOLIDITY -> EItems.SOLIDITY_SOLUTION.asItem();
-            case LIFE -> EItems.LIFE_SOLUTION.asItem();
-            case DECAY -> EItems.DECAY_SOLUTION.asItem();
-            case LIGHT -> EItems.LIGHT_SOLUTION.asItem();
-            case SHADOW -> EItems.SHADOW_SOLUTION.asItem();
-            case MOTION -> EItems.MOTION_SOLUTION.asItem();
-            case MIND -> EItems.MIND_SOLUTION.asItem();
-            case SPACETIME -> EItems.SPACETIME_SOLUTION.asItem();
-            case RESONANCE -> EItems.RESONANCE_SOLUTION.asItem();
-        };
+        var entry = type.solutionItem();
+        return entry != null ? entry.asItem() : null;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulCentrifugeBlockEntity be) {
@@ -226,18 +198,6 @@ public class SoulCentrifugeBlockEntity extends BlockEntity implements MenuProvid
         return tag;
     }
 
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public void syncToClient() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-        }
-    }
-
     @Override
     protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
         super.saveAdditional(output);
@@ -256,6 +216,4 @@ public class SoulCentrifugeBlockEntity extends BlockEntity implements MenuProvid
         processingTotal = input.getIntOr("ProcessingTotal", PROCESSING_TIME_BASE);
         expCost = input.getIntOr("ExpCost", 5);
     }
-
-    private record EssenceValue(EssenceType type, float value) {}
 }

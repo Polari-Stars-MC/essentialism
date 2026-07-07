@@ -37,7 +37,7 @@ public class EssentialismGuideBookItem extends Item {
         sendHeader(player, "《本质主义》第一卷 · 序言");
         player.sendSystemMessage(Component.literal(
                 "\"世界从未向你隐藏，你只是从未学会观看。\"")
-                .withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+                .withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
         player.sendSystemMessage(Component.empty());
 
         sendHeader(player, "── 第一章：九大本质 ──");
@@ -105,6 +105,6 @@ public class EssentialismGuideBookItem extends Item {
 
     private static void sendHeader(Player player, String title) {
         player.sendSystemMessage(Component.literal(title)
-                .withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD));
+                .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
     }
 }

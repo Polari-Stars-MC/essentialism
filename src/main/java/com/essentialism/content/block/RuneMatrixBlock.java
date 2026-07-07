@@ -1,5 +1,6 @@
 package com.essentialism.content.block;
 
+import com.essentialism.content.block.entity.EBlockEntities;
 import com.essentialism.content.block.entity.RuneMatrixBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -34,7 +35,7 @@ public class RuneMatrixBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new RuneMatrixBlockEntity(null, pos, state);
+        return new RuneMatrixBlockEntity(EBlockEntities.RUNE_MATRIX.get(), pos, state);
     }
 
     @Nullable
@@ -46,11 +47,9 @@ public class RuneMatrixBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof RuneMatrixBlockEntity matrix) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof RuneMatrixBlockEntity matrix) {
             player.openMenu(matrix, pos);
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 }

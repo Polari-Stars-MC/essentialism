@@ -1,7 +1,7 @@
 package com.essentialism.content.block;
 
+import com.essentialism.content.block.entity.EBlockEntities;
 import com.essentialism.content.block.entity.SimpleAnalyzerBlockEntity;
-import com.essentialism.init.EItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +36,7 @@ public class SimpleAnalyzerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SimpleAnalyzerBlockEntity(null, pos, state);
+        return new SimpleAnalyzerBlockEntity(EBlockEntities.SIMPLE_ANALYZER.get(), pos, state);
     }
 
     @Nullable
@@ -50,12 +50,10 @@ public class SimpleAnalyzerBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof SimpleAnalyzerBlockEntity analyzer) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SimpleAnalyzerBlockEntity analyzer) {
             player.openMenu(analyzer, pos);
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

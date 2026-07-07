@@ -1,5 +1,6 @@
 package com.essentialism.content.block;
 
+import com.essentialism.content.block.entity.EBlockEntities;
 import com.essentialism.content.block.entity.SoulCentrifugeBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -34,7 +35,7 @@ public class SoulCentrifugeBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new SoulCentrifugeBlockEntity(null, pos, state);
+        return new SoulCentrifugeBlockEntity(EBlockEntities.SOUL_CENTRIFUGE.get(), pos, state);
     }
 
     @Nullable
@@ -47,11 +48,9 @@ public class SoulCentrifugeBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof SoulCentrifugeBlockEntity centrifuge) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SoulCentrifugeBlockEntity centrifuge) {
             player.openMenu(centrifuge, pos);
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 }

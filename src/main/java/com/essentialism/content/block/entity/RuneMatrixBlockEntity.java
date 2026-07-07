@@ -8,9 +8,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +17,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +30,7 @@ import java.util.*;
  * Instant crafting after confirmation; consumes experience levels.
  * Remembers the last 10 recipes for UI display.
  */
-public class RuneMatrixBlockEntity extends BlockEntity implements MenuProvider {
+public class RuneMatrixBlockEntity extends BaseBlockEntity implements MenuProvider {
 
     public static final int SLOT_COUNT = 11; // 9 essence + 1 catalyst + 1 output
     public static final int SLOT_CATALYST = 9;
@@ -191,17 +187,7 @@ public class RuneMatrixBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private ItemStack createConcentratedSolution(EssenceType type, float concentration) {
-        var itemEntry = switch (type) {
-            case SOLIDITY -> com.essentialism.init.EItems.SOLIDITY_SOLUTION;
-            case LIFE -> com.essentialism.init.EItems.LIFE_SOLUTION;
-            case DECAY -> com.essentialism.init.EItems.DECAY_SOLUTION;
-            case LIGHT -> com.essentialism.init.EItems.LIGHT_SOLUTION;
-            case SHADOW -> com.essentialism.init.EItems.SHADOW_SOLUTION;
-            case MOTION -> com.essentialism.init.EItems.MOTION_SOLUTION;
-            case MIND -> com.essentialism.init.EItems.MIND_SOLUTION;
-            case SPACETIME -> com.essentialism.init.EItems.SPACETIME_SOLUTION;
-            case RESONANCE -> com.essentialism.init.EItems.RESONANCE_SOLUTION;
-        };
+        var itemEntry = type.solutionItem();
         return new ItemStack(itemEntry.asItem(), 1);
     }
 
@@ -238,18 +224,6 @@ public class RuneMatrixBlockEntity extends BlockEntity implements MenuProvider {
         output.putInt("RecipeCount", recipeCount);
         tag.merge(output.buildResult());
         return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public void syncToClient() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-        }
     }
 
     @Override

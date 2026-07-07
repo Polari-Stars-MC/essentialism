@@ -189,16 +189,6 @@ public final class EssenceMutation {
     }
 
     private static dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry<?> getSolutionForType(EssenceType type) {
-        return switch (type) {
-            case SOLIDITY -> com.essentialism.init.EItems.SOLIDITY_SOLUTION;
-            case LIFE -> com.essentialism.init.EItems.LIFE_SOLUTION;
-            case DECAY -> com.essentialism.init.EItems.DECAY_SOLUTION;
-            case LIGHT -> com.essentialism.init.EItems.LIGHT_SOLUTION;
-            case SHADOW -> com.essentialism.init.EItems.SHADOW_SOLUTION;
-            case MOTION -> com.essentialism.init.EItems.MOTION_SOLUTION;
-            case MIND -> com.essentialism.init.EItems.MIND_SOLUTION;
-            case SPACETIME -> com.essentialism.init.EItems.SPACETIME_SOLUTION;
-            case RESONANCE -> com.essentialism.init.EItems.RESONANCE_SOLUTION;
-        };
+        return type.solutionItem();
     }
 }

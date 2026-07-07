@@ -6,6 +6,9 @@ import com.essentialism.client.screen.RuneMatrixScreen;
 import com.essentialism.client.screen.SimpleAnalyzerScreen;
 import com.essentialism.client.screen.SoulCentrifugeScreen;
 import dev.anvilcraft.lib.v2.registrum.util.entry.MenuEntry;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.Nullable;
 
 public class EMenus {
     public static final MenuEntry<SimpleAnalyzerMenu> SIMPLE_ANALYZER =
@@ -36,5 +39,22 @@ public class EMenus {
                             () -> RuneMatrixScreen::new)
                     .register();
 
+    /**
+     * Shared stillValid check for all Essentialism block entity menus.
+     * Returns true if the block entity still exists at its position and the
+     * player is within 8 blocks.
+     */
+    public static boolean stillValid(@Nullable BlockEntity blockEntity, Player player) {
+        if (blockEntity == null) return true;
+        return blockEntity.getLevel() != null
+                && blockEntity.getLevel().getBlockEntity(blockEntity.getBlockPos()) == blockEntity
+                && player.distanceToSqr(
+                        blockEntity.getBlockPos().getX() + 0.5,
+                        blockEntity.getBlockPos().getY() + 0.5,
+                        blockEntity.getBlockPos().getZ() + 0.5
+                ) <= 64.0;
+    }
+
+    /** Called by AnvilLib during static initialization. */
     public static void register() {}
 }

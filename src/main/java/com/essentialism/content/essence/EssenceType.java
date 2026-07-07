@@ -2,6 +2,9 @@ package com.essentialism.content.essence;
 
 import net.minecraft.ChatFormatting;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 /**
  * The nine fundamental essences that compose all things in the world.
  * <p>
@@ -72,6 +75,24 @@ public enum EssenceType {
     }
 
     /**
+     * Returns the ARGB color int for UI rendering (bar charts, overlays).
+     * Used by Screen classes for essence visualization.
+     */
+    public int argbColor() {
+        return switch (this) {
+            case SOLIDITY -> 0xFFAAAAAA;
+            case LIFE -> 0xFF55FF55;
+            case DECAY -> 0xFFAA0000;
+            case LIGHT -> 0xFFFFAA00;
+            case SHADOW -> 0xFFAA00AA;
+            case MOTION -> 0xFF55FFFF;
+            case MIND -> 0xFFFF55FF;
+            case SPACETIME -> 0xFF5555FF;
+            case RESONANCE -> 0xFFFFFF55;
+        };
+    }
+
+    /**
      * The sigil — a poetic one-liner that embodies the essence's voice.
      * Used in lore tooltips, item descriptions, and flavor text.
      */
@@ -90,6 +111,25 @@ public enum EssenceType {
 
     public String translationKey() {
         return "essence." + this.id;
+    }
+
+    /**
+     * Returns the {@link com.essentialism.init.EItems EItems} solution entry
+     * for this essence type. Used across multiple block entities and mechanics
+     * to map an essence to its bottled form.
+     */
+    public dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry<?> solutionItem() {
+        return switch (this) {
+            case SOLIDITY -> com.essentialism.init.EItems.SOLIDITY_SOLUTION;
+            case LIFE -> com.essentialism.init.EItems.LIFE_SOLUTION;
+            case DECAY -> com.essentialism.init.EItems.DECAY_SOLUTION;
+            case LIGHT -> com.essentialism.init.EItems.LIGHT_SOLUTION;
+            case SHADOW -> com.essentialism.init.EItems.SHADOW_SOLUTION;
+            case MOTION -> com.essentialism.init.EItems.MOTION_SOLUTION;
+            case MIND -> com.essentialism.init.EItems.MIND_SOLUTION;
+            case SPACETIME -> com.essentialism.init.EItems.SPACETIME_SOLUTION;
+            case RESONANCE -> com.essentialism.init.EItems.RESONANCE_SOLUTION;
+        };
     }
 
     /**
@@ -181,90 +221,108 @@ public enum EssenceType {
      * Returns the extraction efficiency of a given tool for this essence.
      * <p>
      * Based on the design document's "Collection Efficiency Table".
+     * Uses a pre-computed lookup table for O(1) access.
      */
     public ToolEfficiency toolEfficiency(ToolType tool) {
-        return switch (this) {
-            case SOLIDITY -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.HIGH;
-                case AXE -> ToolEfficiency.MEDIUM;
-                case SHOVEL -> ToolEfficiency.LOW;
-                case SHEARS -> ToolEfficiency.VERY_LOW;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 保持完整性
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加坚固量
-            };
-            case LIFE -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.NONE;
-                case AXE -> ToolEfficiency.HIGH;
-                case SHOVEL -> ToolEfficiency.MEDIUM;
-                case SHEARS -> ToolEfficiency.HIGH;
-                case HAND -> ToolEfficiency.LOW;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 冻结生命值
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加生命量
-            };
-            case DECAY -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.MEDIUM;
-                case AXE -> ToolEfficiency.LOW;
-                case SHOVEL -> ToolEfficiency.MEDIUM;
-                case SHEARS -> ToolEfficiency.NONE;
-                case HAND -> ToolEfficiency.VERY_LOW;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 降低熵增
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加熵增量
-            };
-            case LIGHT -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.LOW;
-                case AXE -> ToolEfficiency.NONE;
-                case SHOVEL -> ToolEfficiency.NONE;
-                case SHEARS -> ToolEfficiency.NONE;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 锁定光明
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加光明量
-            };
-            case SHADOW -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.LOW;
-                case AXE -> ToolEfficiency.NONE;
-                case SHOVEL -> ToolEfficiency.NONE;
-                case SHEARS -> ToolEfficiency.LOW;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 保留暗影
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加暗影量
-            };
-            case MOTION -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.NONE;
-                case AXE -> ToolEfficiency.NONE;
-                case SHOVEL -> ToolEfficiency.LOW;
-                case SHEARS -> ToolEfficiency.NONE;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.NONE;
-                case FORTUNE -> ToolEfficiency.NONE;
-            };
-            case MIND -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.NONE;
-                case AXE -> ToolEfficiency.NONE;
-                case SHOVEL -> ToolEfficiency.NONE;
-                case SHEARS -> ToolEfficiency.NONE;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 保留心灵
-                case FORTUNE -> ToolEfficiency.ENHANCED;   // 增加心灵量
-            };
-            case SPACETIME -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.HIGH;
-                case AXE -> ToolEfficiency.NONE;
-                case SHOVEL -> ToolEfficiency.NONE;
-                case SHEARS -> ToolEfficiency.NONE;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.SPECIAL; // 保留时空
-                case FORTUNE -> ToolEfficiency.SPECIAL;    // 极小概率增幅
-            };
-            case RESONANCE -> switch (tool) {
-                case PICKAXE -> ToolEfficiency.NONE;
-                case AXE -> ToolEfficiency.LOW;
-                case SHOVEL -> ToolEfficiency.NONE;
-                case SHEARS -> ToolEfficiency.LOW;
-                case HAND -> ToolEfficiency.NONE;
-                case SILK_TOUCH -> ToolEfficiency.ENHANCED; // 增强共鸣
-                case FORTUNE -> ToolEfficiency.ENHANCED;    // 增加共鸣量
-            };
+        return EFFICIENCY_TABLE.get(this).get(tool);
+    }
+
+    private static final Map<EssenceType, Map<ToolType, ToolEfficiency>> EFFICIENCY_TABLE;
+
+    static {
+        var table = new EnumMap<EssenceType, Map<ToolType, ToolEfficiency>>(EssenceType.class);
+        for (var essence : EssenceType.values()) {
+            table.put(essence, new EnumMap<>(ToolType.class));
+        }
+
+        // Helper to set a value
+        var set = new Object() {
+            void put(EssenceType e, ToolType t, ToolEfficiency eff) {
+                table.get(e).put(t, eff);
+            }
         };
+
+        // ─── SOLIDITY ────────────────────────────────────────────────
+        set.put(SOLIDITY, ToolType.PICKAXE, ToolEfficiency.HIGH);
+        set.put(SOLIDITY, ToolType.AXE, ToolEfficiency.MEDIUM);
+        set.put(SOLIDITY, ToolType.SHOVEL, ToolEfficiency.LOW);
+        set.put(SOLIDITY, ToolType.SHEARS, ToolEfficiency.VERY_LOW);
+        set.put(SOLIDITY, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(SOLIDITY, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(SOLIDITY, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── LIFE ────────────────────────────────────────────────────
+        set.put(LIFE, ToolType.PICKAXE, ToolEfficiency.NONE);
+        set.put(LIFE, ToolType.AXE, ToolEfficiency.HIGH);
+        set.put(LIFE, ToolType.SHOVEL, ToolEfficiency.MEDIUM);
+        set.put(LIFE, ToolType.SHEARS, ToolEfficiency.HIGH);
+        set.put(LIFE, ToolType.HAND, ToolEfficiency.LOW);
+        set.put(LIFE, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(LIFE, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── DECAY ───────────────────────────────────────────────────
+        set.put(DECAY, ToolType.PICKAXE, ToolEfficiency.MEDIUM);
+        set.put(DECAY, ToolType.AXE, ToolEfficiency.LOW);
+        set.put(DECAY, ToolType.SHOVEL, ToolEfficiency.MEDIUM);
+        set.put(DECAY, ToolType.SHEARS, ToolEfficiency.NONE);
+        set.put(DECAY, ToolType.HAND, ToolEfficiency.VERY_LOW);
+        set.put(DECAY, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(DECAY, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── LIGHT ───────────────────────────────────────────────────
+        set.put(LIGHT, ToolType.PICKAXE, ToolEfficiency.LOW);
+        set.put(LIGHT, ToolType.AXE, ToolEfficiency.NONE);
+        set.put(LIGHT, ToolType.SHOVEL, ToolEfficiency.NONE);
+        set.put(LIGHT, ToolType.SHEARS, ToolEfficiency.NONE);
+        set.put(LIGHT, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(LIGHT, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(LIGHT, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── SHADOW ──────────────────────────────────────────────────
+        set.put(SHADOW, ToolType.PICKAXE, ToolEfficiency.LOW);
+        set.put(SHADOW, ToolType.AXE, ToolEfficiency.NONE);
+        set.put(SHADOW, ToolType.SHOVEL, ToolEfficiency.NONE);
+        set.put(SHADOW, ToolType.SHEARS, ToolEfficiency.LOW);
+        set.put(SHADOW, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(SHADOW, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(SHADOW, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── MOTION ──────────────────────────────────────────────────
+        set.put(MOTION, ToolType.PICKAXE, ToolEfficiency.NONE);
+        set.put(MOTION, ToolType.AXE, ToolEfficiency.NONE);
+        set.put(MOTION, ToolType.SHOVEL, ToolEfficiency.LOW);
+        set.put(MOTION, ToolType.SHEARS, ToolEfficiency.NONE);
+        set.put(MOTION, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(MOTION, ToolType.SILK_TOUCH, ToolEfficiency.NONE);
+        set.put(MOTION, ToolType.FORTUNE, ToolEfficiency.NONE);
+
+        // ─── MIND ────────────────────────────────────────────────────
+        set.put(MIND, ToolType.PICKAXE, ToolEfficiency.NONE);
+        set.put(MIND, ToolType.AXE, ToolEfficiency.NONE);
+        set.put(MIND, ToolType.SHOVEL, ToolEfficiency.NONE);
+        set.put(MIND, ToolType.SHEARS, ToolEfficiency.NONE);
+        set.put(MIND, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(MIND, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(MIND, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        // ─── SPACETIME ───────────────────────────────────────────────
+        set.put(SPACETIME, ToolType.PICKAXE, ToolEfficiency.HIGH);
+        set.put(SPACETIME, ToolType.AXE, ToolEfficiency.NONE);
+        set.put(SPACETIME, ToolType.SHOVEL, ToolEfficiency.NONE);
+        set.put(SPACETIME, ToolType.SHEARS, ToolEfficiency.NONE);
+        set.put(SPACETIME, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(SPACETIME, ToolType.SILK_TOUCH, ToolEfficiency.SPECIAL);
+        set.put(SPACETIME, ToolType.FORTUNE, ToolEfficiency.SPECIAL);
+
+        // ─── RESONANCE ───────────────────────────────────────────────
+        set.put(RESONANCE, ToolType.PICKAXE, ToolEfficiency.NONE);
+        set.put(RESONANCE, ToolType.AXE, ToolEfficiency.LOW);
+        set.put(RESONANCE, ToolType.SHOVEL, ToolEfficiency.NONE);
+        set.put(RESONANCE, ToolType.SHEARS, ToolEfficiency.LOW);
+        set.put(RESONANCE, ToolType.HAND, ToolEfficiency.NONE);
+        set.put(RESONANCE, ToolType.SILK_TOUCH, ToolEfficiency.ENHANCED);
+        set.put(RESONANCE, ToolType.FORTUNE, ToolEfficiency.ENHANCED);
+
+        EFFICIENCY_TABLE = table;
     }
 }

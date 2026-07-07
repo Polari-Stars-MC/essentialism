@@ -60,7 +60,7 @@ public class SimpleAnalyzerScreen extends AbstractContainerScreen<SimpleAnalyzer
             extractor.fill(barX, y + BAR_Y_BASE, barX + BAR_WIDTH, y + BAR_Y_BASE + BAR_MAX_HEIGHT, 0xFF222222);
 
             if (barHeight > 0) {
-                int color = getColorForEssence(types[i]);
+                int color = types[i].argbColor();
                 extractor.fill(barX, barY, barX + BAR_WIDTH, barY + barHeight, color);
                 extractor.outline(barX, barY, BAR_WIDTH, barHeight, 0xFF555555);
             }
@@ -90,19 +90,5 @@ public class SimpleAnalyzerScreen extends AbstractContainerScreen<SimpleAnalyzer
                 break;
             }
         }
-    }
-
-    private static int getColorForEssence(EssenceType type) {
-        return switch (type) {
-            case SOLIDITY -> 0xFFAAAAAA;
-            case LIFE -> 0xFF55FF55;
-            case DECAY -> 0xFFAA0000;
-            case LIGHT -> 0xFFFFAA00;
-            case SHADOW -> 0xFFAA00AA;
-            case MOTION -> 0xFF55FFFF;
-            case MIND -> 0xFFFF55FF;
-            case SPACETIME -> 0xFF5555FF;
-            case RESONANCE -> 0xFFFFFF55;
-        };
     }
 }

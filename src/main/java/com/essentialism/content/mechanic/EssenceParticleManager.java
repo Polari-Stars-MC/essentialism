@@ -23,7 +23,8 @@ public final class EssenceParticleManager {
 
     private static final Map<BlockPos, ParticleEmitter> EMITTERS = new ConcurrentHashMap<>();
     private static final int PARTICLE_INTERVAL = 5;
-    private static long lastTick = 0;
+    /** Tracks last tick per level to avoid cross-dimension interference */
+    private static final Map<Level, Long> LAST_TICK = new java.util.WeakHashMap<>();
 
     private EssenceParticleManager() {}
 
@@ -98,8 +99,9 @@ public final class EssenceParticleManager {
         Level level = event.getLevel();
 
         long gameTime = level.getGameTime();
-        if (gameTime - lastTick < PARTICLE_INTERVAL) return;
-        lastTick = gameTime;
+        Long last = LAST_TICK.get(level);
+        if (last != null && gameTime - last < PARTICLE_INTERVAL) return;
+        LAST_TICK.put(level, gameTime);
 
         Iterator<Map.Entry<BlockPos, ParticleEmitter>> iter = EMITTERS.entrySet().iterator();
         while (iter.hasNext()) {

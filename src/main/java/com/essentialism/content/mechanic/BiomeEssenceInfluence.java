@@ -145,14 +145,14 @@ public final class BiomeEssenceInfluence {
 
     private static void putAffinity(ResourceKey<Biome> biome,
             EssenceType t1, float v1, EssenceType t2, float v2) {
-        Map<EssenceType, Float> map = BIOME_AFFINITIES.computeIfAbsent(biome, k -> new EnumMap<>(EssenceType.class));
+        var map = BIOME_AFFINITIES.computeIfAbsent(biome, k -> new EnumMap<>(EssenceType.class));
         map.put(t1, v1);
         map.put(t2, v2);
     }
 
     private static void putAffinity(ResourceKey<Biome> biome,
             EssenceType t1, float v1, EssenceType t2, float v2, EssenceType t3, float v3) {
-        Map<EssenceType, Float> map = BIOME_AFFINITIES.computeIfAbsent(biome, k -> new EnumMap<>(EssenceType.class));
+        var map = BIOME_AFFINITIES.computeIfAbsent(biome, k -> new EnumMap<>(EssenceType.class));
         map.put(t1, v1);
         map.put(t2, v2);
         map.put(t3, v3);
@@ -184,15 +184,23 @@ public final class BiomeEssenceInfluence {
      * Returns all biome affinity multipliers for a given biome.
      */
     public static Map<EssenceType, Float> getAllAffinities(ResourceKey<Biome> biome) {
-        Map<EssenceType, Float> result = new EnumMap<>(EssenceType.class);
-        for (EssenceType type : EssenceType.values()) {
-            result.put(type, 1.0F);
-        }
         Map<EssenceType, Float> bioAff = BIOME_AFFINITIES.get(biome);
-        if (bioAff != null) {
-            result.putAll(bioAff);
-        }
+        if (bioAff == null) return DEFAULT_AFFINITIES;
+
+        Map<EssenceType, Float> result = new EnumMap<>(DEFAULT_AFFINITIES);
+        result.putAll(bioAff);
         return result;
+    }
+
+    /** Cached default all-1.0F map to avoid repeated allocation. */
+    private static final Map<EssenceType, Float> DEFAULT_AFFINITIES;
+
+    static {
+        var defaults = new EnumMap<EssenceType, Float>(EssenceType.class);
+        for (EssenceType type : EssenceType.values()) {
+            defaults.put(type, 1.0F);
+        }
+        DEFAULT_AFFINITIES = java.util.Collections.unmodifiableMap(defaults);
     }
 
     // ─── Player tick: notify about biome essence aura ──────────────────

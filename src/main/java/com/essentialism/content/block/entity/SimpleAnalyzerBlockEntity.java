@@ -9,9 +9,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,12 +18,11 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class SimpleAnalyzerBlockEntity extends BlockEntity implements MenuProvider {
+public class SimpleAnalyzerBlockEntity extends BaseBlockEntity implements MenuProvider {
 
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_COUNT = 1;
@@ -115,9 +111,9 @@ public class SimpleAnalyzerBlockEntity extends BlockEntity implements MenuProvid
         this.analysisDone = true;
 
         if (profile != null) {
+            EssenceType[] types = EssenceType.values();
             for (int i = 0; i < 9; i++) {
-                EssenceType type = EssenceType.values()[i];
-                essenceDisplay[i] = Math.round(profile.get(type));
+                essenceDisplay[i] = Math.round(profile.get(types[i]));
             }
         } else {
             for (int i = 0; i < 9; i++) {
@@ -177,9 +173,8 @@ public class SimpleAnalyzerBlockEntity extends BlockEntity implements MenuProvid
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
         CompoundTag tag = super.getUpdateTag(registries);
-        net.minecraft.world.level.storage.TagValueOutput output =
-                net.minecraft.world.level.storage.TagValueOutput.createWithContext(
-                        net.minecraft.util.ProblemReporter.DISCARDING, registries);
+        var output = net.minecraft.world.level.storage.TagValueOutput.createWithContext(
+                net.minecraft.util.ProblemReporter.DISCARDING, registries);
         ContainerHelper.saveAllItems(output, this.items);
         output.putInt("ProcessingProgress", processingProgress);
         output.putInt("ProcessingTotal", processingTotal);
@@ -187,18 +182,6 @@ public class SimpleAnalyzerBlockEntity extends BlockEntity implements MenuProvid
         output.putIntArray("EssenceDisplay", essenceDisplay);
         tag.merge(output.buildResult());
         return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public void syncToClient() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
-        }
     }
 
     @Override

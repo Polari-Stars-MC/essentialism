@@ -40,6 +40,10 @@ public class EssenceRecipeData {
     private final float minConcentration;
     private final int expCost;
 
+    /** Cached defensive copies for hot-path getter calls. */
+    private volatile Map<EssenceType, Float> cachedEssencesCopy;
+    private volatile ItemStack cachedResultCopy;
+
     public EssenceRecipeData(
             Category category,
             Ingredient input,
@@ -60,9 +64,21 @@ public class EssenceRecipeData {
 
     public Category category() { return category; }
     public Ingredient input() { return input; }
-    public Map<EssenceType, Float> essences() { return new EnumMap<>(essences); }
+    public Map<EssenceType, Float> essences() {
+        var cached = this.cachedEssencesCopy;
+        if (cached != null) return cached;
+        cached = new EnumMap<>(essences);
+        this.cachedEssencesCopy = cached;
+        return cached;
+    }
     public Optional<Ingredient> catalyst() { return catalyst; }
-    public ItemStack result() { return result.copy(); }
+    public ItemStack result() {
+        var cached = this.cachedResultCopy;
+        if (cached != null) return cached;
+        cached = result.copy();
+        this.cachedResultCopy = cached;
+        return cached;
+    }
     public float minConcentration() { return minConcentration; }
     public int expCost() { return expCost; }
 
@@ -87,7 +103,7 @@ public class EssenceRecipeData {
             Codec.STRING.fieldOf("category").forGetter(r -> r.category.name().toLowerCase()),
             Ingredient.CODEC.fieldOf("input").forGetter(EssenceRecipeData::input),
             Codec.unboundedMap(
-                    Codec.STRING.xmap(s -> EssenceType.valueOf(s.toUpperCase()), EssenceType::name),
+                    Codec.STRING.xmap(EssenceType::valueOf, EssenceType::name),
                     Codec.FLOAT
             ).optionalFieldOf("essences", Map.of()).forGetter(EssenceRecipeData::essences),
             Ingredient.CODEC.optionalFieldOf("catalyst").forGetter(EssenceRecipeData::catalyst),

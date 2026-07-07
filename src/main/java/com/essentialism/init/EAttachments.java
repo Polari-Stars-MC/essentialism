@@ -19,7 +19,7 @@ public final class EAttachments {
 
     }
 
+    /** Called by AnvilLib during static initialization to trigger field registration. */
     public static void register() {
-
     }
 }

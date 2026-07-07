@@ -84,46 +84,51 @@ public class ReconstructedItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
-        if (player == null) return InteractionResult.PASS;
+        if (player == null || context.getLevel().isClientSide()) {
+            return player != null ? InteractionResult.SUCCESS : InteractionResult.PASS;
+        }
         ItemStack stack = context.getItemInHand();
-        if (context.getLevel().isClientSide()) return InteractionResult.SUCCESS;
 
         switch (type) {
-            case TIME_BUCKET -> {
-                var nearby = context.getLevel().getEntitiesOfClass(LivingEntity.class,
-                        player.getBoundingBox().inflate(5.0), e -> !(e instanceof Player));
-                for (LivingEntity entity : nearby) {
-                    entity.addEffect(new MobEffectInstance(
-                            MobEffects.SLOWNESS, 200, 3, false, true, true));
+            case TIME_BUCKET -> activateTimeBucket(context, player, stack);
+            case MEMORY_CRYSTAL -> activateMemoryCrystal(player, stack);
+            case MOURNING_GRASS -> activateMourningGrass(context, player, stack);
+            default -> { return InteractionResult.PASS; }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    private void activateTimeBucket(UseOnContext context, Player player, ItemStack stack) {
+        var nearby = context.getLevel().getEntitiesOfClass(LivingEntity.class,
+                player.getBoundingBox().inflate(5.0), e -> !(e instanceof Player));
+        for (LivingEntity entity : nearby) {
+            entity.addEffect(new MobEffectInstance(
+                    MobEffects.SLOWNESS, 200, 3, false, true, true));
+        }
+        player.sendSystemMessage(Component.translatable("message.essentialism.time_bucket.activate")
+                .withStyle(ChatFormatting.BLUE));
+        if (!player.isCreative()) stack.shrink(1);
+    }
+
+    private void activateMemoryCrystal(Player player, ItemStack stack) {
+        player.giveExperiencePoints(100);
+        player.sendSystemMessage(Component.translatable("message.essentialism.memory_crystal.use")
+                .withStyle(ChatFormatting.LIGHT_PURPLE));
+        if (!player.isCreative()) stack.shrink(1);
+    }
+
+    private void activateMourningGrass(UseOnContext context, Player player, ItemStack stack) {
+        BlockPos pos = player.blockPosition();
+        int spread = 0;
+        for (int dx = -2; dx <= 2 && spread < 5; dx++) {
+            for (int dz = -2; dz <= 2 && spread < 5; dz++) {
+                BlockPos target = pos.offset(dx, 0, dz);
+                if (context.getLevel().getBlockState(target).is(Blocks.DIRT)) {
+                    context.getLevel().setBlock(target, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
+                    spread++;
                 }
-                player.sendSystemMessage(Component.translatable("message.essentialism.time_bucket.activate")
-                        .withStyle(ChatFormatting.BLUE));
-                if (!player.isCreative()) stack.shrink(1);
-                return InteractionResult.SUCCESS;
-            }
-            case MEMORY_CRYSTAL -> {
-                player.giveExperiencePoints(100);
-                player.sendSystemMessage(Component.translatable("message.essentialism.memory_crystal.use")
-                        .withStyle(ChatFormatting.LIGHT_PURPLE));
-                if (!player.isCreative()) stack.shrink(1);
-                return InteractionResult.SUCCESS;
-            }
-            case MOURNING_GRASS -> {
-                BlockPos pos = player.blockPosition();
-                int spread = 0;
-                for (int dx = -2; dx <= 2 && spread < 5; dx++) {
-                    for (int dz = -2; dz <= 2 && spread < 5; dz++) {
-                        BlockPos target = pos.offset(dx, 0, dz);
-                        if (context.getLevel().getBlockState(target).is(Blocks.DIRT)) {
-                            context.getLevel().setBlock(target, Blocks.GRASS_BLOCK.defaultBlockState(), 3);
-                            spread++;
-                        }
-                    }
-                }
-                if (!player.isCreative()) stack.shrink(1);
-                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.PASS;
+        if (!player.isCreative()) stack.shrink(1);
     }
 }

@@ -205,7 +205,7 @@ public final class EssenceProfiles {
             List<Resource> stack
     ) {
         EntityProfileTarget target = parseEntityTarget(resourceId);
-        if (target.kind() == EntityTargetKind.ENTITY && !BuiltInRegistries.ENTITY_TYPE.containsKey(target.id())) {
+        if (target.kind() == ProfileTargetKind.SPECIFIC && !BuiltInRegistries.ENTITY_TYPE.containsKey(target.id())) {
             throw new IllegalStateException("Unknown entity id in essence profile path: " + target.id());
         }
         for (Resource resource : stack) {
@@ -230,20 +230,20 @@ public final class EssenceProfiles {
         String relative = path.substring(prefix.length(), path.length() - ".json".length());
         if (relative.startsWith(TAG_PREFIX)) {
             return new BlockProfileTarget(
-                    BlockTargetKind.TAG,
+                    ProfileTargetKind.TAG,
                     Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative.substring(TAG_PREFIX.length()))
             );
         }
         if (relative.startsWith(BLOCK_PREFIX)) {
             return new BlockProfileTarget(
-                    BlockTargetKind.BLOCK,
+                    ProfileTargetKind.SPECIFIC,
                     Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative.substring(BLOCK_PREFIX.length()))
             );
         }
         if (relative.isEmpty()) {
             throw new IllegalStateException("Invalid essence profile path: " + resourceId);
         }
-        return new BlockProfileTarget(BlockTargetKind.BLOCK, Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative));
+        return new BlockProfileTarget(ProfileTargetKind.SPECIFIC, Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative));
     }
 
     private static EntityProfileTarget parseEntityTarget(Identifier resourceId) {
@@ -255,20 +255,20 @@ public final class EssenceProfiles {
         String relative = path.substring(prefix.length(), path.length() - ".json".length());
         if (relative.startsWith(TAG_PREFIX)) {
             return new EntityProfileTarget(
-                    EntityTargetKind.TAG,
+                    ProfileTargetKind.TAG,
                     Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative.substring(TAG_PREFIX.length()))
             );
         }
         if (relative.startsWith(ENTITY_PREFIX)) {
             return new EntityProfileTarget(
-                    EntityTargetKind.ENTITY,
+                    ProfileTargetKind.SPECIFIC,
                     Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative.substring(ENTITY_PREFIX.length()))
             );
         }
         if (relative.isEmpty()) {
             throw new IllegalStateException("Invalid entity essence profile path: " + resourceId);
         }
-        return new EntityProfileTarget(EntityTargetKind.ENTITY, Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative));
+        return new EntityProfileTarget(ProfileTargetKind.SPECIFIC, Identifier.fromNamespaceAndPath(resourceId.getNamespace(), relative));
     }
 
     private static @Nullable EssenceProfile fallbackEntityProfile(LivingEntity entity) {
@@ -295,7 +295,7 @@ public final class EssenceProfiles {
 
     private record BlockRule(BlockProfileTarget target, BlockEssenceProfileDefinition definition) {
         private boolean matches(Block block, Identifier blockId) {
-            if (this.target.kind() == BlockTargetKind.BLOCK) {
+            if (this.target.kind() == ProfileTargetKind.SPECIFIC) {
                 return this.target.id().equals(blockId);
             }
             return BuiltInRegistries.BLOCK.wrapAsHolder(block).is(TagKey.create(Registries.BLOCK, this.target.id()));
@@ -304,39 +304,24 @@ public final class EssenceProfiles {
 
     private record EntityRule(EntityProfileTarget target, EntityEssenceProfileDefinition definition) {
         private boolean matches(EntityType<?> type) {
-            if (this.target.kind() == EntityTargetKind.ENTITY) {
+            if (this.target.kind() == ProfileTargetKind.SPECIFIC) {
                 return this.target.id().equals(BuiltInRegistries.ENTITY_TYPE.getKey(type));
             }
             return BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(type).is(TagKey.create(Registries.ENTITY_TYPE, this.target.id()));
         }
     }
 
-    private record BlockProfileTarget(BlockTargetKind kind, Identifier id) {}
+    private record BlockProfileTarget(ProfileTargetKind kind, Identifier id) {}
 
-    private record EntityProfileTarget(EntityTargetKind kind, Identifier id) {}
+    private record EntityProfileTarget(ProfileTargetKind kind, Identifier id) {}
 
-    private enum BlockTargetKind {
+    private enum ProfileTargetKind {
         TAG(0),
-        BLOCK(1);
+        SPECIFIC(1);
 
         private final int sortOrder;
 
-        BlockTargetKind(int sortOrder) {
-            this.sortOrder = sortOrder;
-        }
-
-        public int sortOrder() {
-            return this.sortOrder;
-        }
-    }
-
-    private enum EntityTargetKind {
-        TAG(0),
-        ENTITY(1);
-
-        private final int sortOrder;
-
-        EntityTargetKind(int sortOrder) {
+        ProfileTargetKind(int sortOrder) {
             this.sortOrder = sortOrder;
         }
 

@@ -1,6 +1,7 @@
 package com.essentialism.content.block;
 
 import com.essentialism.content.block.entity.AdvancedSpectrometerBlockEntity;
+import com.essentialism.content.block.entity.EBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -34,7 +35,7 @@ public class AdvancedSpectrometerBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AdvancedSpectrometerBlockEntity(null, pos, state);
+        return new AdvancedSpectrometerBlockEntity(EBlockEntities.ADVANCED_SPECTROMETER.get(), pos, state);
     }
 
     @Nullable
@@ -47,11 +48,9 @@ public class AdvancedSpectrometerBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
-        BlockEntity be = level.getBlockEntity(pos);
-        if (be instanceof AdvancedSpectrometerBlockEntity spectrometer) {
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof AdvancedSpectrometerBlockEntity spectrometer) {
             player.openMenu(spectrometer, pos);
         }
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 }

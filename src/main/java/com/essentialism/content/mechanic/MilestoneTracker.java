@@ -120,28 +120,21 @@ public final class MilestoneTracker {
         if (player.level().getGameTime() % 100 != 0) return; // check every 5 seconds
 
         MilestoneProgress mp = get(player);
-        if (mp.hasParadox) return; // already achieved
+        if (mp.hasParadox && mp.firstHighEssence) return; // both already achieved
 
-        // Check inventory for paradox items
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+        int size = player.getInventory().getContainerSize();
+        for (int i = 0; i < size; i++) {
             ItemStack stack = player.getInventory().getItem(i);
-            if (stack.getItem() instanceof com.essentialism.content.item.ParadoxItem) {
+            if (!mp.hasParadox && stack.getItem() instanceof com.essentialism.content.item.ParadoxItem) {
                 onParadoxObtained(player);
-                return;
             }
-        }
-
-        // Check for essence solutions with high concentration
-        if (!mp.firstHighEssence) {
-            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                ItemStack stack = player.getInventory().getItem(i);
-                if (stack.getItem() instanceof com.essentialism.content.item.EssenceSolutionItem solution) {
-                    if (solution.getConcentration() >= 60) {
-                        onEssenceObtained(player, solution.getConcentration());
-                        break;
-                    }
+            if (!mp.firstHighEssence && stack.getItem() instanceof com.essentialism.content.item.EssenceSolutionItem solution) {
+                if (solution.getConcentration() >= 60) {
+                    onEssenceObtained(player, solution.getConcentration());
                 }
             }
+            // Both achieved — early exit
+            if (mp.hasParadox && mp.firstHighEssence) break;
         }
     }
 
